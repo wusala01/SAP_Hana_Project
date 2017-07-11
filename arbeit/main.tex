@@ -2,7 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
-\usepackage[english]{babel}
+\usepackage[german]{babel}
 \usepackage{dirtytalk}
 \usepackage{graphicx}
 \usepackage{titling}
@@ -33,6 +33,9 @@
 \usepackage{lipsum}
 \usepackage{multicol}
 \usepackage{abstract}
+\usepackage{suffix}
+\usepackage{amsmath}
+\usepackage{tikz}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -49,59 +52,12 @@
 \newcounter{appcount}
 \setcounter{appcount}{1}
 
-\newcommand{\setttf}[3]{
-\setromanfont[%
-    BoldFont={#1},%
-    ItalicFont={#2},%
-    ]{#3}
-\setsansfont[%
-    BoldFont={#1},%
-    ItalicFont={#2},%
-    ]{#3}
-\setmonofont[%
-    BoldFont={#1},%
-    ItalicFont={#2},%
-    ]{#3}
-}
-
-
-\makeatletter
-\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
-\makeatother
-
-\newcommand{\newapp}[1]{%
-    \addcontentsline{toc}{section}{\protect\numberline{\rom{\theappcount}} #1}
-    \section*{Appendix \rom{\theappcount}: #1 \label{app:\theappcount}}
-    \addtocounter{appcount}{1}
-}
+\input{newCommands.tex}
 
 \renewcommand{\baselinestretch}{1.5}
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter \hspace{20pt} }{0pt}{\Huge\bfseries}
 
-\newcommand{\ssay}[1]{%
-    \mbox{\say{#1}}%
-}
-
-\newcommand\NoIndent[1]{%
-  \par\vbox{\parbox[t]{\linewidth}{#1}}%
-}
-
-\newenvironment{closeItem}{%
-    \vbox\bgroup%
-    \begin{itemize}
-}{
-    \end{itemize}
-    \egroup
-}
-\newenvironment{closeItemCol}{%
-    \vbox\bgroup%
-    \begin{multicols*}{2}
-    \begin{itemize}
-}{
-    \end{itemize}
-    \end{multicols*}
-    \egroup
-}
+\setlength{\parskip}{1em}
 
 \emergencystretch=30pt
 
@@ -137,7 +93,7 @@
 
 \addcontentsline{toc}{section}{Abstract}
 \begin{abstract}
-    
+\lipsum
 \end{abstract}
 
 \addcontentsline{toc}{section}{Contents}
@@ -233,8 +189,8 @@
 \input{appendix.tex}
 \end{appendix}
 
-\addcontentsline{toc}{chapter}{Declaration of Authorship}
 \chapter*{Declaration of Authorship}
+\addcontentsline{toc}{chapter}{Declaration of Authorship}
 I hereby declare that I wrote my Bachelothesis about \say{\thetitle} originally and only used sources and resources as declared. I also declare that the electronic and printed version I have turned in are identical.
 
 \paragraph*{}

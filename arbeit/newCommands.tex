@@ -1,0 +1,46 @@
+%%%%%%%%% \chapterauthor %%%%%%%%%
+\newcommand\chapterauthor[1]{\authortoc{#1}\printchapterauthor{#1}}
+\WithSuffix\newcommand\chapterauthor*[1]{\printchapterauthor{#1}}
+
+\makeatletter
+\newcommand{\printchapterauthor}[1]{%
+  {\parindent0pt\vspace{-3em}%
+  \linespread{1.1}\large\scshape#1%
+  \par\nobreak\vspace*{35pt}}
+  \@afterheading%
+}
+\newcommand{\authortoc}[1]{%
+  \addtocontents{toc}{\vskip{~}}%
+  \addtocontents{toc}{%
+    \protect\contentsline{chapter}%
+    {\hskip.3em\mdseries\scshape\protect\scriptsize#1}{}{}}
+  \addtocontents{toc}{\vskip5pt}%
+} 
+\makeatother
+
+%%%%%%%%% \NoIntend %%%%%%%%%
+\newcommand\NoIndent[1]{%
+  \par\vbox{\parbox[t]{\linewidth}{#1}}%
+}
+
+%%%%%%%%% \begin{closeItem}\end{closeItem} %%%%%%%%%
+\newenvironment{closeItem}{%
+    \vbox\bgroup%
+    \begin{itemize}
+}{
+    \end{itemize}
+    \egroup
+}
+
+%%%%%%%%% \begin{closeItemCol}{#colNums} \end{closeItemCol} %%%%%%%%%
+%%%%%%%%% #ColNums : Count of Columns  %%%%%%%%%
+
+\newenvironment{closeItemCol}[1]{%
+    \vbox\bgroup%
+    \begin{multicols*}{#1}
+    \begin{itemize}
+}{
+    \end{itemize}
+    \end{multicols*}
+    \egroup
+}
