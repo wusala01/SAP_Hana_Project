@@ -1,1 +1,244 @@
+\documentclass[12pt,a4paper,oneside,openright,onecolumn,titlepage]{scrreprt}
 
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage{dirtytalk}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fontspec}
+
+\usepackage[%
+    left=2.cm,%
+    right=3cm,%
+    top=2cm,%
+    bottom=2cm%
+    ]{geometry}
+\usepackage[%
+    style=authoryear,%
+    maxcitenames=2,%
+    backend=biber,%
+    showmedium=true,%
+    useprefix=false%
+    ]{biblatex}
+\usepackage{acronym}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage{abstract}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\newcommand{\sekcite}[4]{%
+(\cite[#2]{#1} qtd.\ in \cite[#4]{#3})%
+}
+
+\newcounter{savepage}
+\newcounter{appcount}
+\setcounter{appcount}{1}
+
+\newcommand{\setttf}[3]{
+\setromanfont[%
+    BoldFont={#1},%
+    ItalicFont={#2},%
+    ]{#3}
+\setsansfont[%
+    BoldFont={#1},%
+    ItalicFont={#2},%
+    ]{#3}
+\setmonofont[%
+    BoldFont={#1},%
+    ItalicFont={#2},%
+    ]{#3}
+}
+
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\newcommand{\newapp}[1]{%
+    \addcontentsline{toc}{section}{\protect\numberline{\rom{\theappcount}} #1}
+    \section*{Appendix \rom{\theappcount}: #1 \label{app:\theappcount}}
+    \addtocounter{appcount}{1}
+}
+
+\renewcommand{\baselinestretch}{1.5}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter \hspace{20pt} }{0pt}{\Huge\bfseries}
+
+\newcommand{\ssay}[1]{%
+    \mbox{\say{#1}}%
+}
+
+\newcommand\NoIndent[1]{%
+  \par\vbox{\parbox[t]{\linewidth}{#1}}%
+}
+
+\newenvironment{closeItem}{%
+    \vbox\bgroup%
+    \begin{itemize}
+}{
+    \end{itemize}
+    \egroup
+}
+\newenvironment{closeItemCol}{%
+    \vbox\bgroup%
+    \begin{multicols*}{2}
+    \begin{itemize}
+}{
+    \end{itemize}
+    \end{multicols*}
+    \egroup
+}
+
+\emergencystretch=30pt
+
+\raggedcolumns
+
+\bibliography{bibliography}
+
+\author{Etler, Soeren; London, Nick; Wegert, Florian}
+
+\title{SAP Hana Projekt}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace*{10em}
+	{\Huge\textbf{\textsc{\MakeUppercase{\thetitle}}}\par}
+	\vfill
+	\includegraphics[width=.66\textwidth]{img/logos/dhbw.pdf}
+	\vfill
+	\vspace{1.5em}
+	{\large Sören~\textsc{Etler}\par}
+	{\large Nick~\textsc{London}\par}
+	{\large Florian~\textsc{Wegert}\par}
+	\vspace{1.5em}
+	International~Management~for~Business~and~Information~Technology \par
+	\vspace{1.5em}
+	{date of submission\par July 04, 2017\par}
+\end{titlepage}
+
+%\setttf{Bitter-Bold.ttf}{Bitter-Italic.ttf}{Bitter-Regular.ttf}
+\pagenumbering{Roman}
+\setcounter{page}{1}
+
+\addcontentsline{toc}{section}{Abstract}
+\begin{abstract}
+    
+\end{abstract}
+
+\addcontentsline{toc}{section}{Contents}
+\tableofcontents
+
+\newpage
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+
+\newpage
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+
+\input{abbreviations.tex}
+
+\setcounter{savepage}{\arabic{page}}
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{content.tex}%
+
+\newpage
+\pagenumbering{Roman}
+\addtocounter{savepage}{1}
+\setcounter{page}{\thesavepage}
+
+\defbibcheck{published}{%
+    \iffieldundef{isbn}{%
+        \iffieldundef{issn}{%
+            \skipentry
+        }{}%
+    }{}%
+}
+\defbibcheck{online}{%
+    \iffieldundef{isbn}{%
+        \iffieldundef{issn}{%
+            \iffieldundef{doi}{%
+                \iffieldundef{url}{%
+                    \skipentry%
+                }{}%
+            }{}%
+        }{%
+            \skipentry%
+        }%
+    }{%
+        \skipentry%
+    }%
+}
+\defbibcheck{gray}{%
+    \iffieldundef{isbn}{%
+        \iffieldundef{issn}{%
+            \iffieldundef{doi}{%
+                \iffieldundef{url}{}{%
+                     \skipentry%
+                }%
+            }{%
+                 \skipentry%
+            }%
+        }{%
+             \skipentry%
+        }%
+    }{%
+         \skipentry%
+    }%
+}
+
+\defbibheading{bibliography}[\bibname]{%
+    \section*{#1}%
+    \markboth{#1}{#1}%
+}
+%\defbibfilter{online}{url and not isbn and not issn and not doi}
+%\defbibfilter{other}{not url and not isbn and not issn and not doi}
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\chapter*{Bibliography}
+\addcontentsline{toc}{section}{Literature}
+\printbibliography[check=published,title={Literature}]
+\newpage
+\addcontentsline{toc}{section}{Electronic Media}
+\printbibliography[check=online,title={Electronic Media}]
+\newpage
+\addcontentsline{toc}{section}{Other Sources}
+\printbibliography[check=gray,title={Other Sources}]
+\chapter*{Appendix}
+\addcontentsline{toc}{chapter}{Appendix}
+%\renewcommand{\chaptermark}[1]{\markboth{}{\uppercase{#1}}}
+\chaptermark{Appendix}
+\begin{appendix}
+\renewcommand\thechapter{\Alph{chapter}}
+\renewcommand\thesection{Appendix \rom{section}}
+\input{appendix.tex}
+\end{appendix}
+
+\addcontentsline{toc}{chapter}{Declaration of Authorship}
+\chapter*{Declaration of Authorship}
+I hereby declare that I wrote my Bachelothesis about \say{\thetitle} originally and only used sources and resources as declared. I also declare that the electronic and printed version I have turned in are identical.
+
+\paragraph*{}
+\vspace{.2in}
+Mannheim, \makebox[1.8in]{\hrulefill}\hfill{}\makebox[2.5in]{\hrulefill}\par
+\hfill{}Nick London
+\end{document}
