@@ -1,5 +1,18 @@
 # SAP Hana Project
 
+## Prequesites:  
+* [Node.JS](https://nodejs.org/)
+
+## Howto install:
+1. Clone to computer
+2. Run `npm install` in directory
+3. Run `bower install` in directory
+4. Create Accesstoken for GitHub [here](https://github.com/settings/tokens)
+5. Create `.env` file in directory
+6. Enter `GIT_TOKEN="{{TOKEN}}"` into `.env`
+7. Run `npm start` to run the program
+8. Exit with `Ctrl+C`
+
 ## Info Links
 
 * [Overview | SAP Cloud Platform](https://cloudplatform.sap.com/index.html)

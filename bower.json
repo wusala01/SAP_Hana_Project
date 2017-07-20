@@ -1,0 +1,27 @@
+{
+  "name": "litter",
+  "description": "A literature management software for BibLaTeX",
+  "main": "index.js",
+  "authors": [
+    "Nick London <nick.london94@gmail.com>"
+  ],
+  "license": "Unlicense",
+  "keywords": [
+    "LaTeX",
+    "BibLaTeX",
+    "GitHub"
+  ],
+  "homepage": "https://github.com/wusala01/SAP_Hana_Project",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "normalize-css": "normalize.css#^7.0.0"
+  }
+}
