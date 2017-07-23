@@ -1,10 +1,11 @@
-var Promise = require('bluebird'),
+const Promise = require('bluebird'),
 	github = require('octonode'),
 	converter = require('biblatex-csl-converter'),
 	token = process.env.GIT_TOKEN;
 
 class GithubLatexGateway {
 	constructor(config){
+		"use strict";
 		if (!(config && config.user && config.path && config.repo)) throw new Exception("Config is missing or does not contain required fields.");
 		this.auth = config.auth || token;
 		this.path = config.path;
