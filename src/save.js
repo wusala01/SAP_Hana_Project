@@ -9,11 +9,11 @@ class GithubLatexGateway {
 		if (!(config && config.user && config.path && config.repo)) throw new Exception("Config is missing or does not contain required fields.");
 		this.auth = config.auth || token;
 		this.path = config.path;
-		this.repo = config.repo;
+		this.repoName = config.repo;
 		this.user = config.user;
 		this.owner = config.owner || config.user;
 		this.client = github.client(this.auth);
-		this.repo = this.client.repo(this.owner + '/' + this.repo);
+		this.repo = this.client.repo(this.owner + '/' + this.repoName);
 	}
 	
 	export(bibDB, SHA) {
@@ -34,6 +34,7 @@ class GithubLatexGateway {
 				resolve(info.content.sha);
 			}).catch((err) => {
 				reject(err);			
+			});
 		});
 	}
 	
@@ -86,4 +87,4 @@ class GithubLatexGateway {
 	}
 }
 
-var exports = module.exports = BibSave;
+var exports = module.exports = GithubLatexGateway;
