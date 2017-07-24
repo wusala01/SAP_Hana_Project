@@ -85,6 +85,14 @@ class GithubLatexGateway {
 			});
 		});
 	}
+	
+	update(bibDB, SHA){
+		return new Promise( (resolve, reject) => {
+			export(bibDB, SHA).then( dummy => {
+				import().then( resolve ).carch( reject );
+			}).catch( reject );
+		})
+	}
 }
 
 var exports = module.exports = GithubLatexGateway;
