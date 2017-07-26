@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "angular": "^1.6.5",
-    "normalize-css": "normalize.css#^7.0.0"
+    "normalize-css": "normalize.css#^7.0.0",
+    "ngstorage": "^0.3.11"
   }
 }
