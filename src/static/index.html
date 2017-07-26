@@ -4,8 +4,20 @@
 		<title>Litter</title>
 		<link rel="stylesheet" type="text/css" href="/lib/normalize-css/normalize.css">
 		<script src="/lib/angular/angular.js"></script>
+		<script src="/lib/ngstorage/ngStorage.min.js"></script>
+		<script>
+		angular.module('litter', [
+			'ngStorage'
+		]).controller('litterCtrl', function(
+			$scope,
+			$localStorage,
+			$sessionStorage
+		){
+			$scope.$storage = $localStorage;
+		});
+		</script>
 	</head>
-	<body>
-		Hello World!
+	<body data-ng-app="litter" data-ng-controller="litterCtrl">
+		<input type="text" data-ng-model="$storage.a--title"></input>
 	</body>
 </html>
