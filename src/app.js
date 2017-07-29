@@ -31,6 +31,11 @@ app.use('/', function(req, res, next) {
 // route the api module to host:port/api
 app.use('/api/', api);
 
+app.post('/redirect', function(req, res){
+	console.log(JSON.stringify(req.param));
+	res.redirect(200, '/');
+});
+
 // route the components loaded via bower to host:port/lib
 app.use('/lib/', express.static(__dirname + '\\..\\bower_components/'));
 console.info('[INFO] Setting bower static router to %s', __dirname + '\\..\\bower_components/')
