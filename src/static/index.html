@@ -2,10 +2,33 @@
 <html>
 	<head>
 		<title>Litter</title>
+		<meta name="google-signin-scope" content="profile email">
+		<meta name="google-signin-client_id" content="168078922244-vhnv2b0o0kf8631806d5qhandebhrd9s.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<link rel="stylesheet" type="text/css" href="/lib/normalize-css/normalize.css">
 		<script src="/lib/angular/angular.js"></script>
+		<script src="/lib/ngstorage/ngStorage.min.js"></script>
+		<script>
+		angular.module('litter', [
+			'ngStorage'
+		]).controller('litterCtrl', function(
+			$scope,
+			$localStorage,
+			$sessionStorage
+		){
+			$scope.$storage = $localStorage;
+		});
+		function onSignIn(googleUser) {
+			//Profile Information
+			console.info(JSON.stringify(googleUser.getBasicProfile(), null, 2));
+			
+			//Backend Token
+			console.log(googleUser.getAuthResponse().id_token);
+		};
+		</script>
 	</head>
-	<body>
-		Hello World!
+	<body data-ng-app="litter" data-ng-controller="litterCtrl">
+		<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+		<input type="text" data-ng-model="$storage['a--title']"></input>
 	</body>
 </html>
