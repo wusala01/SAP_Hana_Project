@@ -1,0 +1,106 @@
+body {
+	background-color: lightgrey;
+
+}
+
+div, input {
+	overflow: hidden;
+	padding: 5px 5px 0 5px;
+}
+
+#firstLevelContainer {
+	height: 100vh;
+	width: 25vw;
+	position: fixed;
+	padding: 0;
+	margin: 10px;
+	/* TODO: Container/ Anwendung darf nicht ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼ber left: 38vw zentriert werden, weil nicht gut fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼r responsive Design */
+	left: 38vw;
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+#appheader {
+	height: 15%;
+	background-color: white;
+	border-bottom: solid black;
+}
+
+#appheader > div, input {
+	display: inline-block;
+	font-weight: bold;
+}
+
+#abbreviationMenue {
+	float: left;
+	width: 15%;
+	/*TODO: Zuweisung fester HÃ¶he kann Problem fÃ¼r Responsive Design werden -> Testen! */
+	height: 60px;
+	font-size: 130%;
+}
+
+#abbreviationMenue > * {
+	/*TODO: vertikale Zentrierung der Elemente auf gleicher HÃ¶he */
+}
+
+#abbreviationMenue > span {
+	/*TODO: Umrandung nicht rund -> Bild verwenden oder andere LÃ¶sung finden (ohne */
+	display: inline-block;
+	width: 40px;
+	line-height: 40px;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 1px;
+	text-align: center;
+	vertical-align: center;
+}
+
+#searchField {
+	/*TODO: searchField sollte jeglichen freien Platz in der Mitte einnehmen
+	TODO: searchField sollte gleich groÃŸe Schrift haben wie abbreviationMenue und menue Div*/
+	overflow: hidden;
+	border: none;
+	font-size: 110%;
+}
+
+#menue {
+	float: right;
+  width: 30px;
+  height: 40px;
+  position: relative;
+	font-size: 160%
+}
+
+#appbody div {
+	border-bottom: 1px solid;
+}
+
+.sectionHeader {
+	background-color: darkgrey;
+}
+
+.sectionFooter {
+	text-align: right;
+	font-weight: bold;
+	font-size: 200%;
+	background-color: lightgrey;
+	height: 30px;
+	line-height: 30px;
+	border: none !important;
+}
+
+.sourceEntity {
+	height: 40px;
+	line-height: 40px;
+}
+
+.sourceEntity::after{
+	content: "\00203A";
+	font-weight: bold;
+	font-size: 180%;
+	line-height: 40px;
+	float: right;
+	
+}
