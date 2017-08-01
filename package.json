@@ -4,8 +4,12 @@
   "description": "A literature management software for BibLaTeX",
   "main": "index.js",
   "scripts": {
+    "postinstall": "bower install",
     "test": "mocha -t 1000",
     "start": "node index.js"
+  },
+  "engines": {
+    "node": "^6.10.0"
   },
   "repository": {
     "type": "git",
