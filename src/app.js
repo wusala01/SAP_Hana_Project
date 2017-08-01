@@ -15,11 +15,11 @@ var express = require('express'),
 	app = express(),
 	api = require('./api'),
 	morgan = require('morgan'),
-	path = require('path');
-
+	path = require('path'),
+	db = require('./dbconnector');
 
 // enable logging
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 
 // ensure HTTPS when not on localhost
 app.use('/', function(req, res, next) {
@@ -33,9 +33,13 @@ app.use('/', function(req, res, next) {
 // route the api module to host:port/api
 app.use('/api/', api);
 
-app.post('/redirect', function(req, res){
-	console.log(JSON.stringify(req.param));
-	res.redirect(200, '/');
+app.all('/redirect', function(req, res){
+	var response = {};
+	response.code = req.query['code'];
+	response.state = req.query['state'];
+	console.log(JSON.stringify(response, null, 2));
+	//TODO Speicherung
+	res.redirect('/?token=' + response.code);
 });
 
 // route the components loaded via bower to host:port/lib
