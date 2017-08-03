@@ -1,0 +1,23 @@
+{
+  "name": "litter-auth-google",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "google-auth-library": "^0.10.0"
+  },
+  "extensions": {
+    "litter:auth": {
+      "google": "./index"
+    }
+  },
+  "jshintConfig": {
+	"esversion": 6
+  }
+}

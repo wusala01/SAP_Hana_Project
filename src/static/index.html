@@ -6,6 +6,8 @@
 		<meta name="google-signin-client_id" content="168078922244-vhnv2b0o0kf8631806d5qhandebhrd9s.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<link rel="stylesheet" type="text/css" href="/lib/normalize-css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="/css/mockup.css">
+
 		<script src="/lib/angular/angular.js"></script>
 		<script src="/lib/ngstorage/ngStorage.min.js"></script>
 		<script>
@@ -28,8 +30,67 @@
 		</script>
 	</head>
 	<body data-ng-app="litter" data-ng-controller="litterCtrl">
-		<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-		<input type="text" data-ng-model="$storage['a--title']"></input>
-		<a href="http://github.com/login/oauth/authorize?client_id=a1055aafb6dce6dc457b&redirect_uri=%68%74%74%70%73%3A%2F%2F%6C%69%74%74%65%72%2D%69%6E%64%69%67%6E%2D%65%73%63%68%65%77%61%6C%2E%63%66%61%70%70%73%2E%65%75%31%30%2E%68%61%6E%61%2E%6F%6E%64%65%6D%61%6E%64%2E%63%6F%6D%2F%72%65%64%69%72%65%63%74&state=gaskdajdas&allow_signup=true&scope=repo">Login GitHub</a>
+		<div id="firstLevelContainer">
+			<div id="appheader">
+				<div id="abbreviationMenue">
+					<span>BA</span>
+				</div>
+				<!-- TODO: search Feld muss Eingabefeld werden -->
+				<!-- TODO: "+ MenÃ¼" muss klickbar sein -->
+				<!-- TODO: "+ MenÃ¼" muss auf Klick aufklappen und Optionen zeigen -->
+				<!-- TODO: "+" Zeichen des MenÃ¼s muss angepasst oder durch Bild oder Symbol (Unicode Zeichen) ersetzt werden -->
+				<div id="menue">
+					✚
+				</div>
+				 <input name="search" id="searchField" placeholder="Search..." type="text">
+			</div>
+			<div id="appbody">
+				<div class="section">
+					<div class="sectionHeader">
+						Section 1
+					</div>
+					<div class="sourceEntity">
+						Clauss 2017a, Design Thinking: ...
+					</div>
+					<div class="sourceEntity">
+						Clauss 2017b, Comprehensive UX ...
+					</div>
+					<div class="sectionFooter">
+						...
+					</div>
+				</div>
+				<div class="section">
+					<div class="sectionHeader">
+						Section 2
+					</div>
+					<div class="sourceEntity">
+						London 2016, 
+					</div>
+					<div class="sourceEntity">
+						Etler 2015, The Art of Testing
+					</div>
+					<div class="sourceEntity">
+						Etler 2017, Dialog Systems: ...
+					</div>
+					<div class="sectionFooter">
+						...
+					</div>
+				</div>
+				<div class="section">
+					<div class="sectionHeader">
+						Section 3
+					</div>
+					<div class="sourceEntity">
+						Trost 2017, Management Approaches: ...
+					</div>
+					<div class="sourceEntity">
+						Zirpel 2017, Partner Ecosystems ...
+					</div>
+					<div class="sectionFooter">
+						...
+					</div>
+				</div>
+			</div>
+    </div>
 	</body>
 </html>

@@ -14,12 +14,13 @@ var express = require('express'),
 	port = process.env.PORT || process.env.VCAP_APP_PORT || 3000,
 	app = express(),
 	api = require('./api'),
-	morgan = require('morgan'),
-	path = require('path'),
 	db = require('./dbconnector');
+	login = require('./login'),
+	morgan = require('morgan'),
+	path = require('path');
 
 // enable logging
-app.use(morgan('tiny'));
+app.use(morgan('combined'));
 
 // ensure HTTPS when not on localhost
 app.use('/', function(req, res, next) {
@@ -29,6 +30,8 @@ app.use('/', function(req, res, next) {
 	}
 	return next();
 });
+
+app.use('/auth/', login);
 
 // route the api module to host:port/api
 app.use('/api/', api);
