@@ -35,7 +35,8 @@ login.use('/', (req, res) => {
 		data.body = data.body.concat(connectors[i].getBody());
 		data.logout = data.logout.concat(connectors[i].getLogout());
 	}
-	res.render('partials/login', data);
+	res.set('Content-Type', 'text/html');
+	res.render(path.resolve(__dirname, './partials/login'), data);
 });
 
 var exports = module.exports = login;

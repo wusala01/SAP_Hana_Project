@@ -8,7 +8,8 @@ var assert = require('assert'),
 const html_login_template = '<div class="g-signin2" data-onsuccess="{{callback}}" data-theme="dark"></div>',
 	html_scope_template = '<meta name="google-signin-scope" content="{{scope}}">',
 	html_client_template = '<meta name="google-signin-client_id" content="{{client_id}}">',
-	html_script_template = '<script>{{script}}</script>';
+	html_script_template = '<script>{{script}}</script>',
+	html_ext_script_template = '<script src="{{script}}"></script>';
 	library_source = 'https://apis.google.com/js/platform.js',
 	clientjs = path.resolve(__dirname, "./client.js");
 	
@@ -24,7 +25,7 @@ var exports = module.exports = function factory(data, host, options){
 	
 	assert(secret, 'The Client Secret provided by Google is missing. Must be provided in environment @ GOOGLE_SECRET');
 	assert(data.scope, 'Google Signin Scope is misssing, please add according to google documentation');
-	if (!fs.existsSync(path.resolve(__dirname, "./client.js"))) throw new Error('Frontend Script missing - Package corrupted');
+	if (!fs.existsSync(clientjs)) throw new Error('Frontend Script missing - Package corrupted');
 	
 	// Configuration
 	var result = {
@@ -70,7 +71,8 @@ var exports = module.exports = function factory(data, host, options){
 			return [
 				html_scope_template.replace("{{scope}}", this.scope),
 				html_client_template.replace("{{client_id}}", this.client_id),
-				html_script_template.replace("{{script}}", fs.readFile(clientjs, {
+				html_ext_script_template.replace("{{script}}", library_source),
+				html_script_template.replace("{{script}}", fs.readFileSync(clientjs, {
 					encoding: "utf8"
 				}))
 			];
