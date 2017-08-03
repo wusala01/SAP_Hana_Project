@@ -18,19 +18,15 @@ pluginManager.connect(login, 'litter:auth', {
 }, (err, extensions, names) => {
 	"use strict";
 	if (err) console.error(err);
-	else if (extensions instanceof Array) connectors = [ extensions ];
+	else if (!(extensions instanceof Array)) connectors = [ extensions ];
 	else connectors = extensions;
-	if (names) console.info(JSON.stringify(extensions, null, 2));
-	console.log(Object.getOwnPropertyNames(extensions[0]).filter(function (p) {
-		return typeof extensions[0][p] === 'function';
-	}));
 });
 
 login.use('/', (req, res) => {
 	"use strict";
 	var l =  connectors.length;
 	var data = {};
-	data.head = [];
+	data.head = [];	
 	data.body = [];
 	data.logout = [];
 	var i;
