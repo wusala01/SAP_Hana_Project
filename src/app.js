@@ -14,9 +14,9 @@ var express = require('express'),
 	port = process.env.PORT || process.env.VCAP_APP_PORT || 3000,
 	app = express(),
 	api = require('./api'),
+	login = require('./login'),
 	morgan = require('morgan'),
 	path = require('path');
-
 
 // enable logging
 app.use(morgan('combined'));
@@ -29,6 +29,8 @@ app.use('/', function(req, res, next) {
 	}
 	return next();
 });
+
+app.use('/auth/', login);
 
 // route the api module to host:port/api
 app.use('/api/', api);
