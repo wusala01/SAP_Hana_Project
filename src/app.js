@@ -15,14 +15,15 @@ var express = require('express'),
 	app = express(),
 	api = require('./api'),
 	login = require('./login'),
-	morgan = require('morgan');
+	morgan = require('morgan'),
+	path = require('path');
 
 // enable logging
-app.use(morgan('tiny'));
+app.use(morgan('combined'));
 
 // ensure HTTPS when not on localhost
 app.use('/', function(req, res, next) {
-	if (!req.secure && !(req.hostname == "localhost")){
+	if (req.get('x-forwarded-proto') == 'http' && !(req.hostname == "localhost")){
 		console.log('Redirect to Secure Connection');
 		return res.redirect('https://' + req.hostname + req.url);
 	}
@@ -34,15 +35,20 @@ app.use('/auth/', login);
 // route the api module to host:port/api
 app.use('/api/', api);
 
+app.post('/redirect', function(req, res){
+	console.log(JSON.stringify(req.param));
+	res.redirect(200, '/');
+});
+
 // route the components loaded via bower to host:port/lib
-app.use('/lib/', express.static(__dirname + '\\..\\bower_components/'));
-console.info('[INFO] Setting bower static router to %s', __dirname + '\\..\\bower_components/')
+app.use('/lib/', express.static(path.resolve(__dirname, '../bower_components') + path.sep));
+console.info('[INFO] Setting bower static router to %s', path.resolve(__dirname, '../bower_components') + path.sep)
 
 	// route server root requests to static folder
-app.use('/', express.static(__dirname +	'\\static'));
-console.info('[INFO] Setting default static router to %s', __dirname + '\\static\\')
-
+app.use('/', express.static(path.resolve(__dirname, 'static') + path.sep));
+console.info('[INFO] Setting default static router to %s', path.resolve(__dirname, 'static') + path.sep);
+	
 // start server and export instance as module
 var exports = module.exports = app.listen(port, function(){
-	console.log('Express Server listening on Port %s.', port);
+	console.info('[INFO] Express Server listening on Port %s.', port);
 });
