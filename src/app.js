@@ -14,6 +14,7 @@ var express = require('express'),
 	port = process.env.PORT || process.env.VCAP_APP_PORT || 3000,
 	app = express(),
 	api = require('./api'),
+	db = require('./dbconnector');
 	login = require('./login'),
 	morgan = require('morgan'),
 	path = require('path');
@@ -35,9 +36,13 @@ app.use('/auth/', login);
 // route the api module to host:port/api
 app.use('/api/', api);
 
-app.post('/redirect', function(req, res){
-	console.log(JSON.stringify(req.param));
-	res.redirect(200, '/');
+app.all('/redirect', function(req, res){
+	var response = {};
+	response.code = req.query['code'];
+	response.state = req.query['state'];
+	console.log(JSON.stringify(response, null, 2));
+	//TODO Speicherung
+	res.redirect('/?token=' + response.code);
 });
 
 // route the components loaded via bower to host:port/lib

@@ -48,7 +48,9 @@
     "google-auth-library": "^0.10.0",
     "js-plugins": "^0.0.3",
     "jshint-junit-reporter": "^0.2.2",
+    "mongodb": "^2.2.30",
     "morgan": "^1.8.2",
-    "octonode": "^0.7.13"
+    "octonode": "^0.7.13",
+    "vcap_services": "^0.3.4"
   }
 }
