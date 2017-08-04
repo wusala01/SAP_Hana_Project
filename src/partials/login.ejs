@@ -3,11 +3,12 @@
 	<head>
 		<% head.forEach(function(line) { %> <%- line %> <% }); %>
 		<script>
-			window.onload(function() {
+			window.addEventListener("load", function load(event) {
+				window.removeEventListener("load", load, false); // Listener entfernen, da nicht mehr benötigt
 				document.getElementById('logout-button').addEventListener("click", function() {	
-					<% logout.forEach(function(command) { %> <%- command %>(); <% }); %>
+					<% logout.forEach(function(command) { %> <%= command %>(); <% }); %>
 				});
-			});
+			}, false);
 		</script>
 	</head>
 	<body>

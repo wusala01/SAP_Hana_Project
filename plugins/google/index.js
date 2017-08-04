@@ -11,7 +11,7 @@ const html_login_template = '<div class="g-signin2" data-onsuccess="{{callback}}
 	html_script_template = '<script>{{script}}</script>',
 	html_ext_script_template = '<script src="{{script}}"></script>';
 	library_source = 'https://apis.google.com/js/platform.js',
-	clientjs = path.resolve(__dirname, "./client.js");
+	clientjs = path.resolve(__dirname, './client.js');
 	
 /**
  * @param data [Object] configuration data
@@ -28,7 +28,7 @@ var exports = module.exports = function factory(data, host, options){
 	if (!fs.existsSync(clientjs)) throw new Error('Frontend Script missing - Package corrupted');
 	
 	// Configuration
-	var result = {
+	return {
 		client_id: secret,
 		client: new auth.OAuth2(secret, '', ''),
 		scope: data.scope,
@@ -39,12 +39,14 @@ var exports = module.exports = function factory(data, host, options){
 					this.client.verifyIdToken(token, this.client_id, cb);
 				}).then( login => {
 					var payload = login.getPayload(),
+						// Permanent User Identification
 						userid = payload['sub'],
+						// Exparation of Token
 						expires = Number.parseInt(payload['exp']),
 						valid = Number.parseInt(payload['iat']),
 						now = Date.now() / 1000 | 0;
-					if(expires > now && now > valid)
-						resolve(userid, expires);
+					if(expires > now && now >= valid)
+						resolve([userid, expires]);
 					else reject(new Error('Token expired'));
 				}).catch(reject);
 			});	
@@ -53,17 +55,17 @@ var exports = module.exports = function factory(data, host, options){
 		handleRequest: function(req, res){
 			res.set('Content-Type', 'application/json');
 			var token = req.body.token || undefined;
-			if (token === undefined) res.end(400, "{\"error\": \"Token missing\"}");
-			else validate(token)
-				.then( (userid, expires) => {
+			if (token === undefined) res.status(400).end("{\"error\": \"Token missing\"}");
+			else this.validate(token)
+				.then( ([userid, expires]) => {
+					// TODO save all to DB, including scope
 					var obj = {};
 					obj.user_id = userid;
 					obj.expires = expires;
-					res.end(200, JSON.stringify(obj));
+					console.log('Input userid: %s; expires: %s \r\n merges to %s', userid, expires, JSON.stringify(obj));
+					res.status(200).end(JSON.stringify(obj));
 				}).catch( err => {
-					var obj = {};
-					obj.error = err;
-					res.end(500, JSON.stringify(obj));
+					res.status(500).end(JSON.stringify(err));
 				});
 		},
 		
@@ -86,10 +88,4 @@ var exports = module.exports = function factory(data, host, options){
 			return "onGoogleSignOut";
 		}
 	};
-	
-	// Setup
-	host.use('/google/', result.handleRequest);
-	
-	// Return
-	return result;
 };

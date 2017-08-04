@@ -1,13 +1,17 @@
 var express = require('express'),
 	login = express(),
+	bodyParser = require('body-parser'),
 	Plugins = require('js-plugins'),
 	pluginManager = new Plugins(),
 	path = require('path'),
 	connectors;
+
 	
 login.set('view engine', 'ejs');
+login.use(bodyParser.json());
 
 pluginManager.scanSubdirs([path.resolve(__dirname, '../plugins/') + path.sep]);
+
 
 pluginManager.connect(login, 'litter:auth', {
 	data: {
@@ -15,14 +19,33 @@ pluginManager.connect(login, 'litter:auth', {
 	},
 	multi: true,
 	required: true
-}, (err, extensions, names) => {
+}, (err, extensions, name) => {
 	"use strict";
+	var names;
 	if (err) console.error(err);
-	else if (!(extensions instanceof Array)) connectors = [ extensions ];
-	else connectors = extensions;
+	else if (!(extensions instanceof Array)) { 
+		connectors = [ extensions ];
+		names = [name];
+	} else {
+		connectors = extensions;
+		names = name;
+	}
+	
+	for (var i = connectors.length - 1; i > -1; i--){
+		console.log(Object.getOwnPropertyNames(extensions[i]).filter(function (p) {		
+				return typeof extensions[i][p] === 'function';		
+		}));
+		login.post('/' + names[i] + '/', connectors[i].handleRequest.bind(connectors[i]));
+	}
+	
+	login._router.stack.forEach(function(r){
+	  if (r.route && r.route.path){
+		console.log(r.route.path);
+	  }
+	});
 });
 
-login.use('/', (req, res) => {
+login.get('/', (req, res) => {
 	"use strict";
 	var l =  connectors.length;
 	var data = {};
