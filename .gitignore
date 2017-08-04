@@ -59,5 +59,7 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#other stuff
 yarn.lock
-yarn.lock
+snippets
