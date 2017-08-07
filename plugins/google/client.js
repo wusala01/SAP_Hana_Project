@@ -5,13 +5,15 @@ function onGoogleSignIn(googleUser) {
 	};
 
 	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = () => {
+	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			try{
 				var result = JSON.parse(this.responseText);
-				if (result.err || !(result.user_id) || !(result.expires)) {
-					console.error('Serverside Problem at user authentication');
-				} else {
+				if (result.err) console.error(result.err);
+				else if (!(result.user_id)) console.error('Invalid input data: user_id missing');
+				else if (!(result.expires)) console.error('Invalid input data: expires missing');
+				else if (result.expires < (Date.now() / 1000 | 0)) console.error('Token expired');
+				else {
 					window.localStorage.user_id = result.user_id;
 					window.localStorage.expires = result.expires;
 				}
@@ -20,9 +22,8 @@ function onGoogleSignIn(googleUser) {
 			}	
 		}
 	};
-	xhttp.setRequestHeader("Content-type", "application/json");
-	xhttp.setRequestHeader("Connection", "close");
 	xhttp.open("POST", "/auth/google/", true);
+	xhttp.setRequestHeader("Content-type", "application/json");
 	xhttp.send(JSON.stringify(id_token));
 }
 
