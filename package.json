@@ -4,8 +4,12 @@
   "description": "A literature management software for BibLaTeX",
   "main": "index.js",
   "scripts": {
+    "postinstall": "bower install",
     "test": "mocha -t 1000",
     "start": "node index.js"
+  },
+  "engines": {
+    "node": "^6.10.0"
   },
   "repository": {
     "type": "git",
@@ -39,9 +43,14 @@
     "bluebird": "^3.5.0",
     "bower": "^1.8.0",
     "dotenv": "^4.0.0",
+    "ejs": "^2.5.7",
     "express": "^4.15.3",
+    "google-auth-library": "^0.10.0",
+    "js-plugins": "^0.0.3",
     "jshint-junit-reporter": "^0.2.2",
+    "mongodb": "^2.2.30",
     "morgan": "^1.8.2",
-    "octonode": "^0.7.13"
+    "octonode": "^0.7.13",
+    "vcap_services": "^0.3.4"
   }
 }

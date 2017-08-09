@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% data.head.forEach(function(line) { %> <%= line %> <% }); %>
+		<script>
+			document.getElementById('logout-button').addEventListener("click", function() {	
+				<% data.logout.forEach(function(command) { %> <%= command %>(); <% }); %>
+			});
+		</script>
+	</head>
+	<body>
+		<% data.body.forEach(function(line) { %> <%= line %> <% }); %>
+		<input id="logout-button" type="button">Logout</input>
+	</body>
+</html>

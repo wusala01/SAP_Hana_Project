@@ -2,8 +2,11 @@
 <html>
 	<head>
 		<title>Litter</title>
+		<meta name="google-signin-scope" content="profile email">
+		<meta name="google-signin-client_id" content="168078922244-vhnv2b0o0kf8631806d5qhandebhrd9s.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<link rel="stylesheet" type="text/css" href="/lib/normalize-css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="src/static/css/mockup.css">
+		<link rel="stylesheet" type="text/css" href="/css/mockup.css">
 
 		<script src="/lib/angular/angular.js"></script>
 		<script src="/lib/ngstorage/ngStorage.min.js"></script>
@@ -17,6 +20,13 @@
 		){
 			$scope.$storage = $localStorage;
 		});
+		function onSignIn(googleUser) {
+			//Profile Information
+			console.info(JSON.stringify(googleUser.getBasicProfile(), null, 2));
+			
+			//Backend Token
+			console.log(googleUser.getAuthResponse().id_token);
+		};
 		</script>
 	</head>
 	<body data-ng-app="litter" data-ng-controller="litterCtrl">
@@ -81,8 +91,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	
-		<input type="text" data-ng-model="$storage.a--title"></input>
+    </div>
 	</body>
 </html>

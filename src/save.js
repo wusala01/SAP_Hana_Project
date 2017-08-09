@@ -88,8 +88,8 @@ class GithubLatexGateway {
 	
 	update(bibDB, SHA){
 		return new Promise( (resolve, reject) => {
-			export(bibDB, SHA).then( dummy => {
-				import().then( resolve ).carch( reject );
+			this.export(bibDB, SHA).then( dummy => {
+				this.import().then( resolve ).carch( reject );
 			}).catch( reject );
 		})
 	}

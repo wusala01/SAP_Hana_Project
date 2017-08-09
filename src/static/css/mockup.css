@@ -10,16 +10,19 @@ div, input {
 
 #firstLevelContainer {
 	height: 100vh;
-	width: 25vw;
-	position: fixed;
+	/* position: absolute; */
 	padding: 0;
-	margin: 10px;
+	margin-left: auto;
 	/* TODO: Container/ Anwendung darf nicht ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼ber left: 38vw zentriert werden, weil nicht gut fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼r responsive Design */
-	left: 38vw;
+	margin-right: auto;
 	background-color: white;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
+	display: block;
+	min-width: 25vw;
+	width: 100%;
+	max-width: 860px;
 }
 
 #appheader {
