@@ -22,7 +22,6 @@
   ],
   "dependencies": {
     "angular": "^1.6.5",
-    "normalize-css": "normalize.css#^7.0.0",
     "ngstorage": "^0.3.11",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
