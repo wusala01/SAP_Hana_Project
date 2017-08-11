@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async>
-    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" async>
-    <link rel="stylesheet" href="/lib/bootstrap-social/bootstrap-social.css" async>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async="">
 	
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="/lib/jquery/dist/jquery.min.js"></script>
@@ -29,33 +25,35 @@
 			$scope.$storage = $localStorage;
 		});
 		</script>
-		
-		<style>
-			.login-btn .fa{
-				background-color: rgba(255,255,255, 0.3);
-			}
-			
-			.login-dropdown{
-				padding: 10px;
-			}
-		</style>
   </head>
-  <body  data-ng-app="litter" data-ng-controller="litterCtrl">
-    <div class="btn-group">
-	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Login
-	  </button>
-	  <div class="dropdown-menu login-dropdown">
-		<a class="btn btn-block btn-social btn-google login-btn">
-		  <span class="fa fa-google"></span>
-		  Sign in with Google
-		</a>
-		<a class="btn btn-block btn-social btn-github login-btn">
-		  <span class="fa fa-github"></span>
-		  Sign in with Github
-		</a>
-	  </div>
+  <body data-ng-app="litter" data-ng-controller="litterCtrl" class="ng-scope">
+  <div id="pageContainer" class="container">
+	<div id="headRow" class="container col-md-10">
+	<span id="logo">Logo</span>
+	<span id="login" class="pull-right">Login</span>
+		</div>
+		<div id="firstlvl" class="container col-md-10">
+		<h1>This will later be a huge picture!</h1>
+			<div class="row" id="slicerow">Could put login here...</div>
+<div class="row" id="firstrow">
+			
+	<div class="col-md-5 block">
+		<h3>This project is serious shit</h3>
+		First Row First Column
 	</div>
-
-  </body>
-</html>
+	<div class="col-md-5 block">
+	<h3>So wow!</h3>
+		First Row Second Column
+	</div>
+</div>
+	<div class="row" id="secrow">
+			<div class="col-md-5 block">
+		First Row First Column
+	</div>
+	<div class="col-md-5 block">
+		First Row Second Column
+	</div>
+	</div>
+		</div>
+	</div>
+<style type="text/css"></style><style type="text/css"></style></body><style type="text/css"></style></html>
