@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Litter</title>
-		<meta name="google-signin-scope" content="profile email">
-		<meta name="google-signin-client_id" content="168078922244-vhnv2b0o0kf8631806d5qhandebhrd9s.apps.googleusercontent.com">
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<link rel="stylesheet" type="text/css" href="/lib/normalize-css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="/css/mockup.css">
+<html lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="/lib/angular/angular.js"></script>
-		<script src="/lib/ngstorage/ngStorage.min.js"></script>
-		<script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async="">
+	
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/tether/dist/js/tether.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Angular.JS -->
+	<script src="/lib/angular/angular.js"></script>
+	<script src="/lib/ngstorage/ngStorage.min.js"></script>
+	<script>
 		angular.module('litter', [
 			'ngStorage'
 		]).controller('litterCtrl', function(
@@ -20,77 +24,36 @@
 		){
 			$scope.$storage = $localStorage;
 		});
-		function onSignIn(googleUser) {
-			//Profile Information
-			console.info(JSON.stringify(googleUser.getBasicProfile(), null, 2));
-			
-			//Backend Token
-			console.log(googleUser.getAuthResponse().id_token);
-		};
 		</script>
-	</head>
-	<body data-ng-app="litter" data-ng-controller="litterCtrl">
-		<div id="firstLevelContainer">
-			<div id="appheader">
-				<div id="abbreviationMenue">
-					<span>BA</span>
-				</div>
-				<!-- TODO: search Feld muss Eingabefeld werden -->
-				<!-- TODO: "+ MenÃ¼" muss klickbar sein -->
-				<!-- TODO: "+ MenÃ¼" muss auf Klick aufklappen und Optionen zeigen -->
-				<!-- TODO: "+" Zeichen des MenÃ¼s muss angepasst oder durch Bild oder Symbol (Unicode Zeichen) ersetzt werden -->
-				<div id="menue">
-					✚
-				</div>
-				 <input name="search" id="searchField" placeholder="Search..." type="text">
-			</div>
-			<div id="appbody">
-				<div class="section">
-					<div class="sectionHeader">
-						Section 1
-					</div>
-					<div class="sourceEntity">
-						Clauss 2017a, Design Thinking: ...
-					</div>
-					<div class="sourceEntity">
-						Clauss 2017b, Comprehensive UX ...
-					</div>
-					<div class="sectionFooter">
-						...
-					</div>
-				</div>
-				<div class="section">
-					<div class="sectionHeader">
-						Section 2
-					</div>
-					<div class="sourceEntity">
-						London 2016, 
-					</div>
-					<div class="sourceEntity">
-						Etler 2015, The Art of Testing
-					</div>
-					<div class="sourceEntity">
-						Etler 2017, Dialog Systems: ...
-					</div>
-					<div class="sectionFooter">
-						...
-					</div>
-				</div>
-				<div class="section">
-					<div class="sectionHeader">
-						Section 3
-					</div>
-					<div class="sourceEntity">
-						Trost 2017, Management Approaches: ...
-					</div>
-					<div class="sourceEntity">
-						Zirpel 2017, Partner Ecosystems ...
-					</div>
-					<div class="sectionFooter">
-						...
-					</div>
-				</div>
-			</div>
-    </div>
-	</body>
-</html>
+  </head>
+  <body data-ng-app="litter" data-ng-controller="litterCtrl" class="ng-scope">
+  <div id="pageContainer" class="container">
+	<div id="headRow" class="container col-md-10">
+	<span id="logo">Logo</span>
+	<span id="login" class="pull-right">Login</span>
+		</div>
+		<div id="firstlvl" class="container col-md-10">
+		<h1>This will later be a huge picture!</h1>
+			<div class="row" id="slicerow">Could put login here...</div>
+<div class="row" id="firstrow">
+			
+	<div class="col-md-5 block">
+		<h3>This project is serious shit</h3>
+		First Row First Column
+	</div>
+	<div class="col-md-5 block">
+	<h3>So wow!</h3>
+		First Row Second Column
+	</div>
+</div>
+	<div class="row" id="secrow">
+			<div class="col-md-5 block">
+		First Row First Column
+	</div>
+	<div class="col-md-5 block">
+		First Row Second Column
+	</div>
+	</div>
+		</div>
+	</div>
+<style type="text/css"></style><style type="text/css"></style></body><style type="text/css"></style></html>
