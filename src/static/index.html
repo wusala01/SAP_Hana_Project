@@ -7,6 +7,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" async>
+    <link rel="stylesheet" href="/lib/bootstrap-social/bootstrap-social.css" async>
 	
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="/lib/jquery/dist/jquery.min.js"></script>
@@ -27,9 +29,33 @@
 			$scope.$storage = $localStorage;
 		});
 		</script>
+		
+		<style>
+			.login-btn .fa{
+				background-color: rgba(255,255,255, 0.3);
+			}
+			
+			.login-dropdown{
+				padding: 10px;
+			}
+		</style>
   </head>
   <body  data-ng-app="litter" data-ng-controller="litterCtrl">
-    <h1>Hello, world!</h1>
+    <div class="btn-group">
+	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Login
+	  </button>
+	  <div class="dropdown-menu login-dropdown">
+		<a class="btn btn-block btn-social btn-google login-btn">
+		  <span class="fa fa-google"></span>
+		  Sign in with Google
+		</a>
+		<a class="btn btn-block btn-social btn-github login-btn">
+		  <span class="fa fa-github"></span>
+		  Sign in with Github
+		</a>
+	  </div>
+	</div>
 
   </body>
 </html>
