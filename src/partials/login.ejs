@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script src="/js/OAuthWindow.js"></script>
 		<% head.forEach(function(line) { %> <%- line %> <% }); %>
 		<script>
 			window.addEventListener("load", function load(event) {
@@ -9,6 +10,17 @@
 					<% logout.forEach(function(command) { %> <%= command %>(); <% }); %>
 				});
 			}, false);
+		</script>
+		<script>
+			var git = new OAuthWindow({
+				windowName: "GitHub Authorization",
+				path: "http://github.com/login/oauth/authorize",
+				setKeys: {
+					client_id: "a1055aafb6dce6dc457b",
+					redirect_uri: "https://litter-indign-eschewal.cfapps.eu10.hana.ondemand.com/auth/github"
+				},
+				stateKey: "state"
+			});
 		</script>
 	</head>
 	<body>
