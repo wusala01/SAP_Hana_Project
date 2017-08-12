@@ -26,7 +26,7 @@ class OAuth{
 		
 		var path = this.path;
 		
-		path += "?" + Object.keys(this.setKeys).map((key) => { 
+		path += Object.keys(this.setKeys).map((key) => { 
 			if(typeof a[key] == Array) return key + "=" + this.setKeys[key].join(encodeURIComponent(" ");
 			else return key + "=" + encodeURIComponent(this.setKeys[key]); 
 		}).join('&');

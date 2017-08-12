@@ -1,17 +1,7 @@
 var assert = require('assert'),
 	Promise = require('bluebird'),
 	GoogleAuth = require('google-auth-library'),
-	auth = new GoogleAuth(),
-	fs = require('fs'),
-	path = require('path');
-
-const html_login_template = '<div class="g-signin2" data-onsuccess="{{callback}}" data-theme="dark"></div>',
-	html_scope_template = '<meta name="google-signin-scope" content="{{scope}}">',
-	html_client_template = '<meta name="google-signin-client_id" content="{{client_id}}">',
-	html_script_template = '<script>{{script}}</script>',
-	html_ext_script_template = '<script src="{{script}}"></script>';
-	library_source = 'https://apis.google.com/js/platform.js',
-	clientjs = path.resolve(__dirname, './client.js');
+	auth = new GoogleAuth();
 	
 /**
  * @param data [Object] configuration data
@@ -28,10 +18,23 @@ var exports = module.exports = function factory(data, host, options){
 	if (!fs.existsSync(clientjs)) throw new Error('Frontend Script missing - Package corrupted');
 	
 	// Configuration
-	return {
-		client_id: secret,
-		client: new auth.OAuth2(secret, '', ''),
-		scope: data.scope,
+	return {		
+		OAuth: {
+			setKeys: {
+				client_id: secret,
+				redirect_uri: "",//TODO 
+				response_type: "token",
+				scope: data.scope,
+				include_granted_scopes: "true"
+			},
+			
+			stateKey: "state",
+			
+			windowName: "Login with Google",
+			
+			path: "https://accounts.google.com/o/oauth2/v2/auth?"
+			
+		},
 		
 		validate: function(token){
 			return new Promise( (resolve, reject) => {
@@ -67,25 +70,6 @@ var exports = module.exports = function factory(data, host, options){
 				}).catch( err => {
 					res.status(500).end(JSON.stringify(err));
 				});
-		},
-		
-		getHead: function(){
-			return [
-				html_scope_template.replace("{{scope}}", this.scope),
-				html_client_template.replace("{{client_id}}", this.client_id),
-				html_ext_script_template.replace("{{script}}", library_source),
-				html_script_template.replace("{{script}}", fs.readFileSync(clientjs, {
-					encoding: "utf8"
-				}))
-			];
-		},
-		
-		getBody: function(){
-			return [ html_login_template.replace("{{callback}}", "onGoogleSignIn") ];
-		},
-		
-		getLogout: function(){
-			return "onGoogleSignOut";
 		}
 	};
 };
