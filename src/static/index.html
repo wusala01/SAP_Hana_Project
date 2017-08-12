@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Litter</title>
-		<meta name="google-signin-scope" content="profile email">
-		<meta name="google-signin-client_id" content="168078922244-vhnv2b0o0kf8631806d5qhandebhrd9s.apps.googleusercontent.com">
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<link rel="stylesheet" type="text/css" href="/lib/normalize-css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="/css/mockup.css">
+<html lang="en"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<script src="/lib/angular/angular.js"></script>
-		<script src="/lib/ngstorage/ngStorage.min.js"></script>
-		<script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async="">
+	
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/tether/dist/js/tether.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Angular.JS -->
+	<script src="/lib/angular/angular.js"></script>
+	<script src="/lib/ngstorage/ngStorage.min.js"></script>
+	<script>
 		angular.module('litter', [
 			'ngStorage'
 		]).controller('litterCtrl', function(
@@ -20,77 +24,89 @@
 		){
 			$scope.$storage = $localStorage;
 		});
-		function onSignIn(googleUser) {
-			//Profile Information
-			console.info(JSON.stringify(googleUser.getBasicProfile(), null, 2));
-			
-			//Backend Token
-			console.log(googleUser.getAuthResponse().id_token);
-		};
 		</script>
-	</head>
-	<body data-ng-app="litter" data-ng-controller="litterCtrl">
-		<div id="firstLevelContainer">
-			<div id="appheader">
-				<div id="abbreviationMenue">
-					<span>BA</span>
-				</div>
-				<!-- TODO: search Feld muss Eingabefeld werden -->
-				<!-- TODO: "+ MenÃ¼" muss klickbar sein -->
-				<!-- TODO: "+ MenÃ¼" muss auf Klick aufklappen und Optionen zeigen -->
-				<!-- TODO: "+" Zeichen des MenÃ¼s muss angepasst oder durch Bild oder Symbol (Unicode Zeichen) ersetzt werden -->
-				<div id="menue">
-					✚
-				</div>
-				 <input name="search" id="searchField" placeholder="Search..." type="text">
+  </head>
+  <body data-ng-app="litter" data-ng-controller="litterCtrl" class="ng-scope">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"></a>
 			</div>
-			<div id="appbody">
-				<div class="section">
-					<div class="sectionHeader">
-						Section 1
-					</div>
-					<div class="sourceEntity">
-						Clauss 2017a, Design Thinking: ...
-					</div>
-					<div class="sourceEntity">
-						Clauss 2017b, Comprehensive UX ...
-					</div>
-					<div class="sectionFooter">
-						...
-					</div>
+			<div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/login">Login</a>
+					</li>
+				</ul>
+		</div>
+	</div></nav>
+	<div id="pageContainer" class="container">
+		<div id="firstlvl" class="row">
+			<div class="col-md-12">
+				<h1>Lorem ipsum</h1>
+				<p>Sub lorem ipsum</p>
+			</div>	
+		</div>
+	<div class="row" id="picturerow">
+		<div class="col-md-12 picture">
+			<div class="image">
+			</div>
+		</div>
+	</div>
+	<div class="row">	
+	<div class="col-md-6">
+		<div class="card row-spaced">
+			<div class="row">
+				<div class="col-md-3 col-xs-2 text-center">
+					Icon
 				</div>
-				<div class="section">
-					<div class="sectionHeader">
-						Section 2
-					</div>
-					<div class="sourceEntity">
-						London 2016, 
-					</div>
-					<div class="sourceEntity">
-						Etler 2015, The Art of Testing
-					</div>
-					<div class="sourceEntity">
-						Etler 2017, Dialog Systems: ...
-					</div>
-					<div class="sectionFooter">
-						...
-					</div>
-				</div>
-				<div class="section">
-					<div class="sectionHeader">
-						Section 3
-					</div>
-					<div class="sourceEntity">
-						Trost 2017, Management Approaches: ...
-					</div>
-					<div class="sourceEntity">
-						Zirpel 2017, Partner Ecosystems ...
-					</div>
-					<div class="sectionFooter">
-						...
-					</div>
+				<div class="col-md-9 col-xs-10">
+					<h3 class="card-heading">This project is serious shit</h3>
+					First Row First Column
 				</div>
 			</div>
-    </div>
-	</body>
-</html>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="card row-spaced">
+			<div class="row">
+				<div class="col-md-3 col-md-push-9 col-xs-2 text-center">
+					Icon
+				</div>
+				<div class="col-md-9 col-md-pull-3 col-xs-10">
+					<h3 class="card-heading">This project is serious shit</h3>
+					First Row First Column
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">	
+	<div class="col-md-6">
+		<div class="card row-spaced">
+			<div class="row">
+				<div class="col-md-3">
+					Icon
+				</div>
+				<div class="col-md-9">
+					<h3 class="card-heading">This project is serious shit</h3>
+					First Row First Column
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="card row-spaced">
+			<div class="row">
+				<div class="col-md-3 col-md-push-9 col-xs-2 text-center">
+					Icon
+				</div>
+				<div class="col-md-9 col-md-pull-3 col-xs-10">
+					<h3 class="card-heading">This project is serious shit</h3>
+					First Row First Column
+				</div>
+			</div>
+		</div>
+	</div>
+</div></div>
+</body><style type="text/css"></style></html>

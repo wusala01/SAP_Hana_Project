@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<% data.head.forEach(function(line) { %> <%= line %> <% }); %>
+		<% head.forEach(function(line) { %> <%- line %> <% }); %>
 		<script>
-			document.getElementById('logout-button').addEventListener("click", function() {	
-				<% data.logout.forEach(function(command) { %> <%= command %>(); <% }); %>
-			});
+			window.addEventListener("load", function load(event) {
+				window.removeEventListener("load", load, false); // Listener entfernen, da nicht mehr benötigt
+				document.getElementById('logout-button').addEventListener("click", function() {	
+					<% logout.forEach(function(command) { %> <%= command %>(); <% }); %>
+				});
+			}, false);
 		</script>
 	</head>
 	<body>
-		<% data.body.forEach(function(line) { %> <%= line %> <% }); %>
-		<input id="logout-button" type="button">Logout</input>
+		<% body.forEach(function(line) { %> <%- line %> <% }); %>
+		<button id="logout-button" type="button">Logout</button>
 	</body>
 </html>
