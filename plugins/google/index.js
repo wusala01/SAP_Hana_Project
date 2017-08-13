@@ -66,7 +66,7 @@ var exports = module.exports = function factory(data, host, options){
 					obj.user_id = userid;
 					obj.expires = expires;
 					console.log('Input userid: %s; expires: %s \r\n merges to %s', userid, expires, JSON.stringify(obj));
-					res.status(200).end(JSON.stringify(obj));
+					res.status(200).end("");
 				}).catch( err => {
 					res.status(500).end(JSON.stringify(err));
 				});

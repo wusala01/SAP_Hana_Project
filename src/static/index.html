@@ -43,46 +43,99 @@
   </head>
   <body data-ng-app="litter" data-ng-controller="litterCtrl" class="ng-scope">
   <div id="pageContainer" class="container">
-	<div id="headRow" class="container col-md-10">
-	<span id="logo">Logo</span>
-	<div class="btn-group pull-right">
- 	  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
- 		Login
- 	  </button>
- 	  <div class="dropdown-menu login-dropdown">
- 		<a class="btn btn-block btn-social btn-google login-btn">
- 		  <span class="fa fa-google"></span>
- 		  Sign in with Google
- 		</a>
- 		<a class="btn btn-block btn-social btn-github login-btn">
- 		  <span class="fa fa-github"></span>
- 		  Sign in with Github
- 		</a>
- 	  </div>
- 	</div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"></a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Login
+						</button>
+						<div class="dropdown-menu login-dropdown">
+							<a class="btn btn-block btn-social btn-google login-btn">
+							  <span class="fa fa-google"></span>
+							  Sign in with Google
+							</a>
+							<a class="btn btn-block btn-social btn-github login-btn">
+								<span class="fa fa-github"></span>
+								Sign in with Github
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div id="firstlvl" class="container col-md-10">
-		<h1>This will later be a huge picture!</h1>
-			<div class="row" id="slicerow">Could put login here...</div>
-<div class="row" id="firstrow">
-			
-	<div class="col-md-5 block">
-		<h3>This project is serious shit</h3>
-		First Row First Column
-	</div>
-	<div class="col-md-5 block">
-	<h3>So wow!</h3>
-		First Row Second Column
-	</div>
-</div>
-	<div class="row" id="secrow">
-			<div class="col-md-5 block">
-		First Row First Column
-	</div>
-	<div class="col-md-5 block">
-		First Row Second Column
-	</div>
-	</div>
+	</nav>
+	<div id="pageContainer" class="container">
+		<div id="firstlvl" class="row">
+			<div class="col-md-12">
+				<h1>Lorem ipsum</h1>
+				<p>Sub lorem ipsum</p>
+			</div>	
+		</div>
+	<div class="row" id="picturerow">
+		<div class="col-md-12 picture">
+			<div class="image">
+			</div>
 		</div>
 	</div>
-</body></html>
+	<div class="row">	
+		<div class="col-md-6">
+			<div class="card row-spaced">
+				<div class="row">
+					<div class="col-md-3 col-xs-2 text-center">
+						Icon
+					</div>
+					<div class="col-md-9 col-xs-10">
+						<h3 class="card-heading">This project is serious shit</h3>
+						First Row First Column
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card row-spaced">
+				<div class="row">
+					<div class="col-md-3 col-md-push-9 col-xs-2 text-center">
+						Icon
+					</div>
+					<div class="col-md-9 col-md-pull-3 col-xs-10">
+						<h3 class="card-heading">This project is serious shit</h3>
+						First Row First Column
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">	
+		<div class="col-md-6">
+			<div class="card row-spaced">
+				<div class="row">
+					<div class="col-md-3">
+						Icon
+					</div>
+					<div class="col-md-9">
+						<h3 class="card-heading">This project is serious shit</h3>
+						First Row First Column
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card row-spaced">
+				<div class="row">
+					<div class="col-md-3 col-md-push-9 col-xs-2 text-center">
+						Icon
+					</div>
+					<div class="col-md-9 col-md-pull-3 col-xs-10">
+						<h3 class="card-heading">This project is serious shit</h3>
+						First Row First Column
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
