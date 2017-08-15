@@ -1,51 +1,23 @@
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1)
-	  .toUpperCase();
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
-
-class OAuth{
-	constructor(options) {
-		this.windowName = options.windowName || 'ConnectWithOAuth';
-		this.path = options.path;
-		this.callback = options.callback || function(){ 
+function OAuth(target){
+	"use strict";
+	var that = {};
+	that._oauthWindow = window.open('/authorize/' + target.toLowerCase(), "Login with " + target);
+	that._oauthInterval = window.setInterval(function(){
+		if (that._oauthWindow.closed) {
+			window.clearInterval(that._oauthInterval);
 			window.location.reload();
-		};
-		this.setKeys = options.setKeys || {};
-		this.stateKey = options.stateKey || undefined;
-		this.stateValidator = options.stateValidator || undefined;
-	}
-	
-	open(){
-		var that = this;
-		
-		var path = this.path;
-		
-		path += Object.keys(this.setKeys).map((key) => { 
-			if(typeof a[key] == Array) return key + "=" + this.setKeys[key].join(encodeURIComponent(" ");
-			else return key + "=" + encodeURIComponent(this.setKeys[key]); 
-		}).join('&');
-		
-		var state;
-		
-		if (this.stateKey !== undefined){
-			state = guid();
-			path += (path == this.path ? "" : "&") + this.stateKey + "=" + state;
-			if (this.stateValidator !== undefined)
-				this.stateValidator(state);
 		}
-		
-		that._oauthWindow = window.open(path, this.windowName);
-		that._oauthInterval = window.setInterval(function(){
-			if (that._oauthWindow.closed) {
-				window.clearInterval(that._oauthInterval);
-				this.callback();
-			}
-		}, 0);
-	}
+	}, 0);
 }
+(function initLogin(){
+	for (var i = logins.length -1 ; i > -1 ; i--){
+		document.getElementById('login-' + logins[i]).addEventListener("click", function(event){
+			event.preventDefault();
+			var target = this.id.slice(6 - this.id.length);
+			
+			console.log("Login clicked " + target);
+			OAuth(target);
+			return false;
+		});
+	}
+})();
