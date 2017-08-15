@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AUCTORE | Login</title>
+		<script>
+			"use strict";
+			var i = 0;
+			var _progressInterval = window.setInterval(function(){
+				document.getElementById('process').innerHTML = (".").repeat(++i);
+				if (i > 4) i = 0;
+			}, 1000);
+			
+			var variables = JSON.parse('<%- JSON.stringify(logindata); %>');
+			
+			function saveToLocal(path, obj){
+				Object.keys(obj).map((key) => {
+					if (typeof obj[key] == 'object') saveToLocal(path + '_' + key, obj[key]);
+					else window.localStorage[path + '_' + key] = obj[key];
+				});
+			}
+			
+			if(variables.email && variables.token){
+				saveToLocal('', variables);
+				window.localStorage.loggedIn = true;
+			} else {
+				window.localStorage.loggedIn = false;
+			}
+			window.clearInterval(_progressInterval);
+			window.close();
+		</script>
+	</head>
+	<body>
+		Processing login information<span id="process"></span>
+	</body>
+</html>

@@ -1,11 +1,11 @@
 {
-  "name": "litter-google",
+  "name": "litter-github",
   "version": "1.0.0",
   "author": "Nick London <nick.london94@gmail.com>",
   "license": "ISC",
   "extensions": {
     "litter:auth": {
-      "google": "./oauth"
+      "github": "./oauth"
     }
   }
 }

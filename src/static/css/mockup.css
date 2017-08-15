@@ -52,3 +52,13 @@
 	margin-top: 0;
 margin-bottom: 25px;
 }
+
+.login-btn .fa{
+	background-color: rgba(255,255,255, 0.3);
+}
+	
+.login-dropdown{
+	padding: 10px;
+}
+
+body { padding-top: 70px; }
