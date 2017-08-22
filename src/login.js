@@ -1,8 +1,7 @@
 var Plugins = require('js-plugins'),
 	pluginManager = new Plugins(),
 	path = require('path'),
-	connectors,
-	exports;
+	connectors;
 
 new Promise((resolve, reject) => {
 	pluginManager.scanSubdirs([path.resolve(__dirname, '../plugins/') + path.sep]);

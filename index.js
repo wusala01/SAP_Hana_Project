@@ -1,6 +1,5 @@
 require('dotenv').load();
-// var server = require('./' + (process.env.NODE_ENV == 'production' ? 'build' : 'src') + '/app');
-var server = require('./src/app');
+var server = require('./build/app');
 
 process.stdin.resume();
 

@@ -1,51 +1,89 @@
-var MongoClient = require('mongodb').MongoClient(),
-Promise = require('bluebird'),
-assert = require('assert'),
-vcapServices = require('vcap_services');
+'use strict';
 
+var MongoClient = require('mongodb').MongoClient,
+    Promise = require('bluebird');
 
-console.log(JSON.stringify(vcapServices.getCredentials("mongodb")));
-var uri = vcapServices.getCredentials("mongodb")["uri"] || "localhost:27017";
-
-var obj = {};
-
-function instanciate(db) {
-	return new Promise((resolve, reject) => {
-		if (!(db.collection('users'))) 
-			db.createCollection('users').then(resolve).catch(reject);	
-		resolve(db.collection('users'));
-	});
-}
-
-MongoClient.connect(uri).then(db => {
-	obj.db = db;
-	instanciate(db).then(usersCollection => {
-		obj.collection = usersCollection;
-	}).catch(console.error);
-});
-
-obj.getToken = function getToken(id){
-	return new Promise((resolve, reject) => {
-		this.collection.findOne({ _id: id }).then(result => {
-			resolve(result.token);
-		}).catch(reject);
-	});
-}
-
-obj.createUser = function createUser(id){
-	return new Promise((resolve, reject) => {
-		var user = this.getUser(id).then(result => {
-			if(result === null || result === undefined || result == {}){
-				this.collection.insertOne({ _id: id , token: "undefined"}).then(resolve).catch(reject);
+export class DBConnector {
+	constructor() {
+		this.collections = new Map();
+	}
+	
+	static async factory(uri){
+		MongoClient.connect(uri, (err, db) => {
+			if (err) {
+				console.error(err); 
+				return false;
 			} else {
-				reject(new Error('User already Existed'));
+				var r = new DBConnector();
+				r.database = db;
+				return r;
 			}
-		}).catch(reject);
-	});
+		});
+	}
+	
+	collection(collection) {
+		if (this.collections.has(collection)) return this.collections.get(collection);else return new Collection(this, collection);
+	}
+
+	removeCollection(collection) {
+		if (this.collections.has(collection)) {
+			this.collections.delete(collection);
+			return Promise.resolve(this.database.dropCollection(collection));
+		} else {
+			this.collection(collection);
+			return Promise.resolve(this.removeCollection(collection));
+		}
+	}
 }
 
-obj.addGit = function addGit(id, token){
-	return this.collection.updateOne({_id : id}, {"$set": {token : token}});
-}
+export class Collection {
+	constructor(that, collection) {
+		this.parent = that;
+		this._collection = this.parent.database.collection(collection);
+		this.parent.collections.set(collection, this.parent);
+	}
 
-var exports = module.exports = obj;
+	setPrimary(index) {
+		return Promise.fromCallback(cb => {
+			this._collection.setIndex(index, {
+				unique: true,
+				background: true,
+				dropDups: true
+			}, cb);
+		});
+	}
+
+	find(selector, multi) {
+		if (multi) {
+			return new Promise((resolve, reject) => {
+				var cursor;
+				try {
+					cursor = this._collection.find(selector);
+					resolve(cursor.toArray());
+				} catch (err) {
+					reject(err);
+				}
+			});
+		} else {
+			return Promise.resolve(this._collection.findOne(selector, {}));
+		}
+	}
+
+	insert(data) {
+		var fn = data instanceof Array ? 'insertMany' : 'insertOne';
+		return Promise.resolve(this._collection[fn](data, {
+			serializeFunctions: true,
+			forceServerObjectId: true
+		}));
+	}
+
+	update(selector, data) {
+		var fn = data instanceof Array ? 'updateMany' : 'updateOne';
+		return Promise.resolve(this._collection[fn](selector, data));
+	}
+
+	delete(selector) {
+		var fn = data instanceof Array ? 'deleteMany' : 'deleteOne';
+		return Promise.resolve(this._collection[fn](selector));
+	}
+}
