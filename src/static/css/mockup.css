@@ -1,109 +1,64 @@
-body {
-	background-color: lightgrey;
-
-}
-
-div, input {
-	overflow: hidden;
-	padding: 5px 5px 0 5px;
-}
-
-#firstLevelContainer {
-	height: 100vh;
-	/* position: absolute; */
-	padding: 0;
-	margin-left: auto;
-	/* TODO: Container/ Anwendung darf nicht ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼ber left: 38vw zentriert werden, weil nicht gut fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼r responsive Design */
-	margin-right: auto;
-	background-color: white;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
+#headRow {
+	min-height: 60px;
 	display: block;
-	min-width: 25vw;
-	width: 100%;
-	max-width: 860px;
 }
 
-#appheader {
-	height: 15%;
-	background-color: white;
-	border-bottom: solid black;
-}
-
-#appheader > div, input {
-	display: inline-block;
-	font-weight: bold;
-}
-
-#abbreviationMenue {
+.navbar-brand {
+	position: absolute;
+	top: 5px;
+	bottom: 5px;
+	width: 170px;
+	padding: 0;
+	background-image: url(http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: left center;
 	float: left;
-	width: 15%;
-	/*TODO: Zuweisung fester HÃ¶he kann Problem fÃ¼r Responsive Design werden -> Testen! */
-	height: 60px;
-	font-size: 130%;
-}
-
-#abbreviationMenue > * {
-	/*TODO: vertikale Zentrierung der Elemente auf gleicher HÃ¶he */
-}
-
-#abbreviationMenue > span {
-	/*TODO: Umrandung nicht rund -> Bild verwenden oder andere LÃ¶sung finden (ohne */
-	display: inline-block;
-	width: 40px;
-	line-height: 40px;
-	border-radius: 50%;
-	border-style: solid;
-	border-width: 1px;
-	text-align: center;
-	vertical-align: center;
-}
-
-#searchField {
-	/*TODO: searchField sollte jeglichen freien Platz in der Mitte einnehmen
-	TODO: searchField sollte gleich groÃŸe Schrift haben wie abbreviationMenue und menue Div*/
-	overflow: hidden;
-	border: none;
-	font-size: 110%;
-}
-
-#menue {
-	float: right;
-  width: 30px;
-  height: 40px;
-  position: relative;
-	font-size: 160%
-}
-
-#appbody div {
-	border-bottom: 1px solid;
-}
-
-.sectionHeader {
-	background-color: darkgrey;
-}
-
-.sectionFooter {
-	text-align: right;
-	font-weight: bold;
-	font-size: 200%;
-	background-color: lightgrey;
-	height: 25px;
 	line-height: 25px;
-	border: none !important;
+	height: 45px;
 }
 
-.sourceEntity {
-	height: 40px;
-	line-height: 40px;
+.container-fluid, .container {
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.sourceEntity::after{
-	content: "\00203A";
-	font-weight: bold;
-	font-size: 180%;
-	line-height: 40px;
-	float: right;
+.image {
+	max-width: 960px;
+	background-image: url(https://twistedsifter.files.wordpress.com/2016/07/dulmen_bornste_waldweg.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin: auto;
+	height: 400px;
+}
+
+#firstlvl {
+	text-align: center;
+}
+
+.card {
+	border-radius: 3px;
+	box-shadow: 0 2px 4px rgba(0,0,0,.15);
+	padding: 25px;
+}
+
+.row-spaced {
+	margin-top: 25px;
+}
+
+.card-heading {
+	font-weight: 500;
+	line-height: 1.1;
+	margin-top: 0;
+margin-bottom: 25px;
+}
+
+.login-btn .fa{
+	background-color: rgba(255,255,255, 0.3);
+}
 	
+.login-dropdown{
+	padding: 10px;
 }
+
+body { padding-top: 70px; }
