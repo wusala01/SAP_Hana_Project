@@ -8,12 +8,17 @@ var express = require('express'), // Main Server Package
 	app = express(), // Server Routing Instance
 	api = require('./api'), // API Routing Instance
 	login = require('./login'), // Login Configuration Loader
+	Promise = require('bluebird'),
+	database,
+	users,
+	conf = {},
 	morgan = require('morgan'), // Logging Module
 	session = require('express-session'), // Session Manager
 	path = require('path'), // Plattform independant File-Path Management
 	vcapServices = require('vcap_services'), // VCAP Variable Parser for Service Binding
 	https = require('follow-redirects').https, // Extended HTTPS Module for Server Side Requests
 	url = require('url'), // URL Parser
+	connector = require('./dbconnector'),
 	querystring = require('querystring'); // Post Body generator
 	
 
@@ -59,6 +64,14 @@ if (env != 'dev') {
 	
 	sessionConf.cookie.secure = true;
 	sessionConf.cookie.sameSite = true;
+	
+	
+	connector.DBConnector.factory(mongoDbCredentials.uri).then(db => {
+		database = db;
+		users = database.collection('users');
+		users.setPrimary('email');
+	});
+	
 } else {
 	
 	sessionConf.cookie.secure = false;
@@ -68,7 +81,7 @@ if (env != 'dev') {
 
 app.use(session(sessionConf));
 // End session configuration
-
+	
 // ensure HTTPS when not on localhost
 app.use('/', function(req, res, next) {
 	if (req.get('x-forwarded-proto') == 'http' && (req.hostname != "localhost")){
@@ -121,7 +134,7 @@ app.get('/authorize/:service', function(req, res){
 	if(req.params.service && login.extensions && login.extensions[req.params.service]) {
 		var that = login.extensions[req.params.service];
 		var conf = {
-			redirectUri: encodeURIComponent([ (process.env.NODE_ENV == 'dev' ? 'http' : 'https') + ":", "", req.hostname + (env == 'dev' ? ':3000' : ''), "authorized", req.params.service, ""].join('/'))
+			redirectUri: encodeURIComponent([ (env == 'dev' ? 'http' : 'https') + ":", "", req.hostname + (env == 'dev' ? ':3000' : ''), "authorized", req.params.service, ""].join('/'))
 		}; 
 		Object.assign(conf, that);
 		var [path, state] = UriFactory(conf);
@@ -149,11 +162,11 @@ app.get('/authorized/:service', function(req, res) {
 			){
 				if(req.query[that.response.error]) res.status(500).end(that.response.error);
 				else if (req.query[that.response.token]){
-					uri = url.parse(that.tokenExchange.path);
-					data = {};
+					var uri = url.parse(that.tokenExchange.path),
+						data = {};
 					Object.assign(data, that.tokenExchange.setKeys);
 					data[that.tokenExchange.tokenKey] = req.query[that.response.token];
-					data[that.tokenExchange.redirect] = [ (process.env.NODE_ENV == 'dev' ? 'http' : 'https') + ":", "", req.hostname + (env == 'dev' ? ':3000' : ''), "authorized", req.params.service, ""].join('/');
+					data[that.tokenExchange.redirect] = [ (env == 'dev' ? 'http' : 'https') + ":", "", req.hostname + (env == 'dev' ? ':3000' : ''), "authorized", req.params.service, ""].join('/');
 					if (that.tokenExchange.propagateState) data[that.tokenExchange.state] = req.session[req.params.service + '_state'];
 					data = querystring.stringify(data);
 					
@@ -204,29 +217,34 @@ app.get('/authorized/:service', function(req, res) {
 										var body = Buffer.concat(buffer).toString();
 										console.log(body);
 										var result = JSON.parse(body);
-										
-										var token = guid();
-										
+																				
 										var path = that.emailRetrieve.response.email.split(/[\[\]\.]/g).filter(function(value){return value != "";});
 										
 										for (var i = 0; i < path.length; i++){
 											result = result[path[i]];
 										}
 										
-										req.session.email = result;
-										req.session.token = token;
-										
-										req.session.save(function(err) {
-											if (err) res.status(500).end();
-											else res.render('sites/login.ejs', {
-												logindata: {
-													email: result,
-													token: token
-												}
+										if (users || env !== 'dev')
+										users.find({email: result}).then(result => {
+											// TODO if need to save values to session
+										}).catch(err => {
+											var user = {email: result};
+											user[req.params.service] = {token: req.session.accessToken};
+											users.insert(user);
+										}).finally(() => {
+											req.session.email = result;
+											req.session.save(function(err) {
+												if (err) res.status(500).end();
+												else res.render('sites/login.ejs');
 											});
 										});
-									
-										
+										else {
+											req.session.email = result;
+											req.session.save(function(err) {
+												if (err) res.status(500).end();
+												else res.render('sites/login.ejs');
+											});
+										}
 									});
 									
 								});
@@ -267,9 +285,12 @@ console.info('[INFO] Setting bower static router to %s', path.resolve(__dirname,
 // Index View 
 app.set('view engine', 'ejs');
 app.use('/', function(req, res, next){
-	if(req.path == '/' || req.path == '/index.html') res.render('sites/index.ejs', {
-		logins: Object.keys(login.extensions)
-	});
+	conf.logins = Object.keys(login.extensions);
+	if(req.path == '/' || req.path == '/index.html') 
+		req.session.reload(function(err) {
+			if(!(err) && req.session.email === undefined) res.render('sites/index.ejs', conf);
+			else res.render('sites/overview.ejs', conf);
+		});
 	else return next();
 });
 

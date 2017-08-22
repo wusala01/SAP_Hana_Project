@@ -51,17 +51,8 @@ function capitalizeFirstLetter(string) {
 	
 	<!-- OAuth --> 
 	<script src="/js/OAuthWindow.js" defer></script>
+	<script src="/js/litter.js" defer></script>
 	<script>
-		angular.module('litter', [
-			'ngStorage'
-		]).controller('litterCtrl', function(
-			$scope,
-			$localStorage,
-			$sessionStorage
-		){
-			$scope.$storage = $localStorage;
-		});
-		
 		var logins = JSON.parse('<%- JSON.stringify(logins); %>');
 		
 		$(document).ready(function() {
@@ -94,8 +85,8 @@ function capitalizeFirstLetter(string) {
 	
   </head>
   
-  <body data-ng-app="litter" data-ng-controller="litterCtrl" class="ng-scope">
-  <div id="pageContainer" class="container">
+  <body>
+  <div id="pageContainer" class="container-fluid">
 	<nav class="nav navbar navbar-default navbar-fixed-top container-fluid">
 		<a class="navbar-brand" href="/"></a>
 		<div class="btn-nav pull-right">
@@ -115,4 +106,3 @@ function capitalizeFirstLetter(string) {
 			</button>
 		</div>
 	</nav>
-	<div id="pageContainer" class="container">
