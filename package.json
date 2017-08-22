@@ -11,7 +11,7 @@
     "postinstall:img": "cpy 'src/**/*.*' '!src/**/*.@(js^|css)' build --parents",
     "test": "mocha -t 1000",
     "start": "node index.js",
-    "localrun": "yarn run postinstall && yarn run start"
+    "localrun": "npm install && npm run postinstall:bower && npm run postinstall:babelNode && npm run postinstall:babelBrowser && npm run postinstall:css && npm run start"
   },
   "engines": {
     "node": "^6.10.0"
