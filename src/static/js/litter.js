@@ -202,3 +202,9 @@ $(document).ready(function () {
 		});
 	});
 });
+
+$(".input-group").on("click", "a", function(){
+	var cloned = $(this).prev().clone(true, true);
+	$(this).before(cloned);
+	cloned.find("input").val("").attr("value", "");
+});
