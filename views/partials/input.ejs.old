@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-<div class="container-fluid" data-ng-init="element = DB[current]">
-=======
+
 <div class="container">
 	<form class="">	
 		<div class="form-group row" id="Title">
@@ -276,7 +274,3 @@
 							<option>....</option>
 -->
 <div class="container" data-ng-init="element = DB[current]">
->>>>>>> 70dcb27e18338253a416b77750f9e807b6365202
-	<form class="ng-litter-input">	
-	</form>
-</div>
