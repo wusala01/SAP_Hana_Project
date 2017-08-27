@@ -33,7 +33,7 @@
 	litterGroups[makeDirectiveTitle(['ng', 'group', groupKey])] = [function(){
 		var result = {
 			restrict: "C",
-			template: 	"<div class=\"col-md-2 col-xs-2\"><label class=\"control-label\" for=\"Identifier\">" + (!!groupValue.$name ? groupValue.$name : "") + "</label></div><div class=\"col-md-10 col-xs-10 input-group\">"
+			template: 	"<div class=\"col-xs-2\"><label class=\"control-label\" for=\"Identifier\">" + (!!groupValue.$name ? groupValue.$name : "") + "</label></div><div class=\"col-xs-9 input-group\">"
 		};
 		angular.forEach(groupValue, (elementValue, elementKey) => {
 			if (elementKey[0] == "$") return;
@@ -83,12 +83,12 @@
 						break;
 						case "name": 
 							result.template = "<span class=\"input-group-addon\">";
-							result.template += _conf.title + "</span><input type=\"text\" class=\"form-control\" placeholder=\"Nachname\" aria-describedby=\"dateHelp\"/><input type=\"text\" class=\"form-control\" placeholder=\"Vorname\" aria-describedby=\"dateHelp\"/>";
+							result.template += _conf.title + "</span><input type=\"text\" class=\"form-control\" placeholder=\"Nachname\" aria-describedby=\"dateHelp\"/><span class=\"form-liner input-group-addon\"></span><input type=\"text\" class=\"form-control\" placeholder=\"Vorname\" aria-describedby=\"dateHelp\"/>";
 							break;
 						default:
 							result.template = "<span class=\"input-group-addon\">" + _conf.title +"</span><input type=\"text\" value=\"{{item.fields."+ elementKey +"}}\" class=\"form-control\" aria-describedby=\"doiAddon\" />";
 					}
-					if (_conf.multi) result.template += "<button class=\"btn btn-default\" type=\"button\"><span class=\"fa fa-plus\"></span></button>";
+					if (_conf.multi) result.template += " <span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\"><span class=\"fa fa-plus\"></span>&nbsp;</button></span>";
 					return result;
 				}
 			];

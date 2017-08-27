@@ -61,7 +61,7 @@ margin-bottom: 25px;
 	padding: 10px;
 }
 
-body { padding-top: 70px; }
+body { padding-top: 55px; }
 
 .scrollable {
 	height: -webkit-fill-available;
@@ -71,7 +71,7 @@ body { padding-top: 70px; }
 
 .scrollable.nospace {
 	margin-bottom: 0px;
-	margin-top: -20px;
+	margin-top: 0px;
 }
 
 .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, 
@@ -84,4 +84,11 @@ body { padding-top: 70px; }
 .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
 	padding-left: 0px;
 	padding-right: 0px;
+}
+
+.form-liner{
+	width: 0px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
 }
