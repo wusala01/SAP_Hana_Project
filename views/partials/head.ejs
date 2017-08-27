@@ -1,0 +1,112 @@
+<%
+
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+%>
+<html lang="en">
+	<head>
+	<style type="text/css">
+		@charset "UTF-8";
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate)
+		{
+			display:none !important;
+		}
+		
+		ng\:form{
+			display:block;
+		}
+		
+		.ng-animate-shim{
+			visibility:hidden;
+		}
+		
+		.ng-anchor{
+			position:absolute;
+		}
+	</style>
+	<title>
+		AUCTORE
+	</title>   
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async>
+	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" async>
+	<link rel="stylesheet" href="/lib/bootstrap-social/bootstrap-social.css" async>
+	<link rel="stylesheet" href="/css/mockup.css" async>
+
+	<!-- jQuery first, then Tether, then Bootstrap JS. -->
+	<script src="/lib/jquery/dist/jquery.min.js"></script>
+	<script src="/lib/tether/dist/js/tether.min.js"></script>
+	<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Angular.JS -->
+	<script src="/js/conf.js"></script>
+	<script src="/lib/angular/angular.js"></script>
+	<script src="/lib/ngstorage/ngStorage.min.js"></script>
+	<script src="/js/bibDB.js"></script>
+	<script src="/js/ngDrag.js"></script>
+	<script src="/js/litterDirectiveFactory.js"></script>
+	
+	
+	<!-- OAuth --> 
+	<script src="/js/OAuthWindow.js" defer></script>
+	<script src="/js/litter.js" defer></script>
+	<script>
+		var logins = JSON.parse('<%- JSON.stringify(logins); %>');
+		
+		$(document).ready(function() {
+			if (window.localStorage.loggedIn != "true") $('#login').toggleClass('hidden');
+			else $('#logout').toggleClass('hidden');
+			
+			$('#logout').on('click', function(event){
+				event.preventDefault();
+				
+				$.ajax('/logout', {
+					data: {
+						token: window.localStorage['_token']
+					},
+					type: 'POST',
+					success: function(){
+						window.localStorage.removeItem('_token');
+						window.localStorage.removeItem('_email');
+						window.localStorage.loggedIn = false;
+						window.location.reload();
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+						alert('Logout failed w/ Errortext \"' + textStatus + '\".');
+					}
+				});
+				
+				return false;
+			});
+		});
+	</script>
+	
+  </head>
+  
+  <body>
+  <div id="pageContainer" class="container-fluid">
+	<nav class="nav navbar navbar-default navbar-fixed-top container-fluid">
+		<a class="navbar-brand" href="/"></a>
+		<div class="btn-nav pull-right">
+			<button id="login" type="button" class="hidden btn navbar-btn login-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Login
+			</button>
+			<div class="dropdown-menu pull-right login-dropdown">
+				 <% logins.forEach(function(login) { %>
+					<a href="#" id="login-<%= login.toLowerCase(); %>" class="btn btn-block btn-social btn-<%= login.toLowerCase(); %> login-btn">
+					  <span class="fa fa-<%= login.toLowerCase(); %>"></span>
+					  Sign in with <%= capitalizeFirstLetter(login); %>
+					</a>
+				 <% }); %>
+			</div>
+			<button id="logout" type="button" class="hidden btn navbar-btn login-btn">
+				Logout
+			</button>
+		</div>
+	</nav>
