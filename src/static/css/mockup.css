@@ -30,8 +30,13 @@
 	margin-top: 55px;
 }
 
+.flex {
+	display: flex;
+	flex-direction: row;
+}
+
 .image {
-	background-image: url('https://twistedsifter.files.wordpress.com/2016/07/dulmen_bornste_waldweg.jpg');
+	background-image: url('/img/library-488677_1920.jpg');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: auto;
@@ -64,6 +69,7 @@
 
 .row-spaced {
 	margin-top: 25px;
+	flex-grow: 1;
 }
 
 .card-heading {
