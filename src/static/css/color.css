@@ -22,7 +22,7 @@
 	margin-left: 15px;
 }
 
-.login-btn {
+.login-btn:not(.btn-social) {
 	background-color: var(--primary);
 	border-color: white;
 	border-width: medium;
@@ -71,4 +71,9 @@
 .control-label {
     float: right;
     padding-right: 1em;
+}
+
+.md-button.md-fab{
+	background-color: var(--primary);
+	color: white;
 }

@@ -40,6 +40,7 @@ function capitalizeFirstLetter(string) {
 	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" async>
 	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" async>
 	<link rel="stylesheet" href="/lib/bootstrap-social/bootstrap-social.css" async>
+	<link rel="stylesheet" href="/lib/angular-material/angular-material.css" async>
 	
 	<!-- Custom Stylesheets -->
 	<link rel="stylesheet" href="/css/mockup.css" async>
@@ -53,7 +54,11 @@ function capitalizeFirstLetter(string) {
 	<!-- Angular.JS -->
 	<script src="/js/conf.js"></script>
 	<script src="/lib/angular/angular.js"></script>
+	<script src="/lib/angular-animate/angular-animate.min.js"></script>
+	<script src="/lib/angular-aria/angular-aria.min.js"></script>
+	<script src="/lib/angular-material/angular-material.min.js"></script>
 	<script src="/lib/ngstorage/ngStorage.min.js"></script>
+	<script src="/lib/angular-toArrayFilter/toArrayFilter.js"></script>
 	<script src="/js/bibDB.js"></script>
 	<script src="/js/ngDrag.js"></script>
 	<script src="/js/litterDirectiveFactory.js"></script>
@@ -103,7 +108,7 @@ function capitalizeFirstLetter(string) {
 			<button id="login" type="button" class="d-none btn navbar-btn login-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Login
 			</button>
-			<div class="dropdown-menu pull-right login-dropdown">
+			<div class="dropdown-menu dropdown-left login-dropdown">
 				 <% logins.forEach(function(login) { %>
 					<a href="#" id="login-<%= login.toLowerCase(); %>" class="btn btn-block btn-social btn-<%= login.toLowerCase(); %> login-btn">
 					  <span class="fa fa-<%= login.toLowerCase(); %>"></span>

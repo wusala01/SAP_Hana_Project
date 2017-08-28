@@ -16,7 +16,10 @@
     // but misses .module we can fall back to using window.
     angular = (angular && angular.module ) ? angular : window.angular;
 
-    return angular.module('bibDB', ['ngStorage']).provider('$bibDB', _bibDB());
+    return angular.module('bibDB', ['ngStorage']).config(['$localStorageProvider',
+    function ($localStorageProvider) {
+        $localStorageProvider.setKeyPrefix('bibDB-');
+    }]).provider('$bibDB', _bibDB());
 
     function _bibDB(){
         

@@ -1,41 +1,93 @@
 var app = angular.module('litter', [
 	'ngDrag',
 	'bibDB',
-	'litterDirectives'
+	'ngStorage',
+	'litterDirectives',
+	'angular-toArrayFilter'
 ]).controller('litterCtrl', [
 	'$scope',
 	'$bibDB',
+	'$sessionStorage',
 	function(
 		$scope,
-		$bibDB
+		$bibDB,
+		$sessionStorage
 	){
-		$scope.conf = conf;
+		$scope.conf = {};
+		$scope.conf.groups = groups;
+		$scope.conf.fields = fields;
 		$scope.DB = $bibDB;
-		$scope.current = null;
-		$scope.item = null;
+		$scope.current = (!!$sessionStorage.current ? $sessionStorage.current : undefined);
 		
-		function setCurrent(value) {
+		$scope.setCurrent = function setCurrent(value) {
 			$scope.current = value;
-			$scope.item = $scope.DB[value];
+			$sessionStorage.current = value;
 		}
 		
-		$scope.setCurrent = setCurrent;
-		
-		function addItem(value) {
-			console.log(value);
-			$scope.DB[$scope.current].fields[value].push({
-				"type": "text",
-				"text": ""
-			});
+		$scope.makeAvailable = function(type){
+			var fields = $scope.DB[$scope.current].fields;
+			if (!!fields[type]) return;
+			else {
+				var path = Object.findSubKey($scope.conf.groups, value);
+				var conf = $scope.conf.groups;
+				for (var key = path.shift(); !!key; key = path.shift())
+					conf = conf[key];
+				if (!!conf.multi) {
+					var entry;
+					switch (type) {
+						case: "name": entry = {family: [{type: "text", text: ""}], given: [{type: "text", text: ""}];
+						break;
+						case: "text": 
+							if (!!conf.direct) entry = "";
+							else entry = {type: "text", text: ""};
+							break;				
+					}
+					fields[type] = entry;
+				} else {
+					fields[type] = [];
+					$scope.addItem(type);
+				}
+				
+			}
 		}
 		
-		$scope.addItem = addItem;
+		$scope.showField = function showField(type) {
+			if (!$scope.current) return false;
+			else {
+				var _conf = $scope.conf.fields[$scope.DB[$scope.current]["bib_type"]];
+				if ((_conf.required.indexOf(type) > -1) || (_conf.eitheror.indexOf(type) > -1) || (_conf.optional.indexOf(type) > -1)){
+					$scope.makeAvailable(type);
+					return true;
+				} else return false;
+			}
+		}
 		
-		function dragListener(val, $event){
+		$scope.addItem = function addItem(value) {
+			var path = Object.findSubKey($scope.conf.groups, value);
+			var conf = $scope.conf.groups;
+			for (var key = path.shift(); !!key; key = path.shift())
+				conf = conf[key];
+			var type = conf.type;
+			var entry;
+			switch (type) {
+				case: "name": entry = {family: [{type: "text", text: ""}], given: [{type: "text", text: ""}];
+				break;
+				case: "text": 
+					if (!!conf.direct) entry = "";
+					else entry = {type: "text", text: ""};
+					break;				
+			}
+			$scope.DB[$scope.current].fields[value].push(entry);
+		}
+		
+		$scope.removeItem = function removeItem(value, key) {
+			console.log(value, key);
+			$scope.DB[$scope.current].fields[value].splice(key, 1);
+		}
+		
+		$scope.dragListener = function dragListener(val, $event){
 			$event.originalEvent.dataTransfer.setData("text", "\\autocite[][]{" + val + "}");
 		};
-		
-		$scope.dragListener = dragListener;
 		
 		$scope.printAuthorTitle = function(bibEntry){
 			var authorEditor;
@@ -52,7 +104,7 @@ var app = angular.module('litter', [
 				var etal = false;
 				if (authorEditor instanceof Array) {
 					if (authorEditor.length > 1) etal = true;
-					authorEditor = authorEditor [0];
+					authorEditor = authorEditor[0];
 				} 
 				
 				if (typeof authorEditor == "object") {
@@ -85,9 +137,37 @@ var app = angular.module('litter', [
 			if (bibEntry.entry_key == $scope.current) return "active";
 			else return "";
 		};
+		
+		$scope.isEntry = function(value, index, array){
+			return (index[0] != "$");
+		};
 	}]);
 
+Object.recKeys = function(obj) {
+	var keys = [],
+		_keys = Object.keys(obj);
+	for (let index in _keys) {
+		let entry = [_keys[index]];
+		keys.push(entry);
+		if (typeof obj[_keys[index]] == 'object'){
+			let subKeys = Object.recKeys(obj[_keys[index]]);
+			for (let subindex in subKeys){
+				let subEntry = entry.slice();
+				subEntry = subEntry.concat(subKeys[subindex]);
+				keys.push(subEntry);
+			}
+		}
+	}
+	return keys;
+};
 
+Object.findSubKey = function(obj, key) {
+	var keys = Object.recKeys(obj);
+	for (index in keys) {
+		if (keys[index].indexOf(key) > -1) return keys[index];
+	}
+	return false;
+}
 	
 $(document).ready(function() {
     $(".dropdown-menu").on('click', 'li a', function(){
@@ -95,7 +175,7 @@ $(document).ready(function() {
       $(this).parents(".dropdown-menu").prev().val($(this).text());
       $(this).parents(".input-group-btn").next().attr('data-type', $(this).text()).data('type', $(this).text());
    });
-   
+      
    $("form").on('keyup', '[data-type=ISBN]', function (e) {
 		if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
 			return false;
