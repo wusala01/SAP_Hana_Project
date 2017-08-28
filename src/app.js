@@ -9,6 +9,7 @@ var express = require('express'), // Main Server Package
 	api = require('./api'), // API Routing Instance
 	login = require('./login'), // Login Configuration Loader
 	Promise = require('bluebird'),
+	compression = require('compression'),
 	database,
 	users,
 	conf = {},
@@ -24,7 +25,7 @@ var express = require('express'), // Main Server Package
 
 // enable logging
 app.use(morgan('combined')); 
-
+app.use(compression());
 
 // Configure Sessions	
 var env = process.env.NODE_ENV || 'dev';

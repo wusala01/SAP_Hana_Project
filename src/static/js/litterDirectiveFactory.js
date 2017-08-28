@@ -28,16 +28,16 @@
 		return result;
 	};
 	
-	angular.forEach(conf, (groupValue, groupKey) => {
+	angular.forEach(groups, (groupValue, groupKey) => {
 		
 	litterGroups[makeDirectiveTitle(['ng', 'group', groupKey])] = [function(){
 		var result = {
 			restrict: "C",
-			template: 	"<label class=\"form-control-label\" for=\"Identifier\">" + (!!groupValue.$name ? groupValue.$name : "") + "</label><div class=\"form-group\">"
+			template: 	"<label class=\"col-sm-12 col-form-label-lg col-form-label\" for=\"Identifier\">" + (!!groupValue.$name ? groupValue.$name : "") + "</label><div class=\"form-group col-sm-10\">"
 		};
 		angular.forEach(groupValue, (elementValue, elementKey) => {
 			if (elementKey[0] == "$") return;
-			result.template += 	"<div class=\"input-group ng-element-" + elementKey + "\" ";
+			result.template += 	"<div class=\"input-group ng-element-" + elementKey + "\" data-ng-if=\"showField('" + elementKey + "')\"";
 			if (!!elementValue.multi) {
 				result.template += 	"data-ng-init=\"DB[current].fields." + elementKey + " = DB[current].fields." + elementKey + " || []\" data-ng-repeat=\"(key, value) in DB[current].fields." + elementKey + "\"";
 			}
@@ -55,14 +55,15 @@
 					type: "text",
 					timespan: false,
 					options: [],
-					multi: false
+					multi: false,
+					direct: false
 				};
 			Object.assign(_conf, elementValue);
 			
 			litterDirectives[makeDirectiveTitle(['ng', 'element', elementKey])] = ['$rootScope',
 				function($rootScope) {
 					var path;
-					if (_conf.multi) path = "value.text";
+					if (_conf.multi) path = "value" + (_conf.type == "text" ? ".text" : "");
 					else path = "DB[current].fields." + elementKey;
 					var result = {
 						restrict: "C"
@@ -76,7 +77,7 @@
 						case "option":
 							let _option = makeDirectiveTitle(['option', elementKey]);
 							let _select = makeDirectiveTitle(['select', elementKey])
-							let _path = "conf." + groupKey + "." + elementKey + ".options";
+							let _path = "conf.groups." + groupKey + "." + elementKey + ".options";
 							result.template = "<span class=\"col col-sm-2 input-group-addon\">";
 							result.template += _conf.title + "</span><select class=\"form-control\"  ng-options=\"" + _option + ".key as " + _option + ".name for " + _option + " in " + _path + " track by " + _option + ".key\" ng-model=\"" + _select + "\"></select>";
 						break;
@@ -90,12 +91,15 @@
 						break;
 						case "name": 
 							result.template = "<span class=\"col col-sm-2 input-group-addon\">";
-							result.template += _conf.title + "</span><input type=\"text\" class=\"form-control\" placeholder=\"Nachname\" aria-describedby=\"dateHelp\"/><span class=\"form-liner input-group-addon\"></span><input type=\"text\" class=\"form-control\" placeholder=\"Vorname\" aria-describedby=\"dateHelp\"/>";
+							result.template += _conf.title + "</span><input type=\"text\" class=\"form-control\" placeholder=\"Nachname\" data-ng-model=\"" + path + ".family[0].text\" aria-describedby=\"dateHelp\"/><span class=\"form-liner input-group-addon\"></span><input type=\"text\" class=\"form-control\" placeholder=\"Vorname\" data-ng-model=\"" + path + ".given[0].text\" aria-describedby=\"dateHelp\"/>";
 							break;
+						case "longtext":
+							result.template = "<span class=\"col col-sm-2 input-group-addon\">" + _conf.title +"</span><textarea data-ng-model=\"" + path + ".text\" class=\"form-control\" aria-describedby=\"doiAddon\" ></textarea>";
+						break;
 						default:
-							result.template = "<span class=\"col col-sm-2 input-group-addon\">" + _conf.title +"</span><input type=\"text\" data-ng-model=\"" + path + "\" class=\"form-control\" aria-describedby=\"doiAddon\" />";
+							result.template = "<span class=\"col col-sm-2 input-group-addon\">" + _conf.title +"</span><input type=\"text\" data-ng-model=\"" + (_conf.direct ? path : path + ".text" )+ "\" class=\"form-control\" aria-describedby=\"doiAddon\" />";
 					}
-					if (_conf.multi) result.template += " <span class=\"input-group-btn\"><button class=\"btn btn-default\" data-ng-click=\"addItem('" + elementKey + "')\" type=\"button\"><span class=\"fa fa-plus\"></span>&nbsp;</button></span>";
+					if (_conf.multi) result.template += " <div class=\"input-group-btn\"><button class=\"btn btn-default\" data-ng-click=\"addItem('" + elementKey + "')\" type=\"button\"><span class=\"fa fa-plus\"></span>&nbsp;</button><button class=\"btn btn-default\" data-ng-click=\"removeItem('" + elementKey + "', key)\" data-ng-if=\"DB[current].fields." + elementKey + ".length > 1\" type=\"button\"><span class=\"fa fa-minus\"></span>&nbsp;</button></div>";
 					return result;
 				}
 			];
@@ -107,7 +111,7 @@
 			restrict: "C",
 			template: ""
 		};
-		angular.forEach(conf, (groupValue, groupKey) => {
+		angular.forEach(groups, (groupValue, groupKey) => {
 			result.template += "<div class=\"form-control row ng-group-" + groupKey + "\"></div>";
 		});
 		return result;

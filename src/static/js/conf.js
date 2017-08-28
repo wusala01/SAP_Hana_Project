@@ -1,9 +1,9 @@
-const conf = {
+const groups = {
 	"core": {
 		"author": {
 			"type": "name",
-			"title": "Autor",
-			"multi": true
+			"multi": true,
+			"title": "Autor"
 			},
 		"editor": {
 			"title": "Editor",
@@ -16,8 +16,17 @@ const conf = {
 			"title": "Datum"
 			},
 		"title": {
-			"type": "name",
-			"title": "Titel"
+			"type": "text",
+			"title": "Titel",
+			"multi": true
+			},
+		"subtitle": {
+			"title": "Untertitel",
+			"type": "text"
+			},
+		"titleaddon": {
+			"title": "Titelanhang",
+			"type": "text"
 			},
 		"type": {
 			"type": "option",
@@ -42,58 +51,60 @@ const conf = {
 			"type": "text"
 			},
 		},
-	"title": {
-		"subtitle": {
-			"title": "Untertitel",
-			"type": "text"
-			},
-		"titleaddon": {
-			"title": "Titelanhang",
-			"type": "text"
-			},
-		},
 	"person": {
+		"$name": "Mitarbeiter",
 		"afterword": {
 			"title": "Nachwortautor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"annotator": {
 			"title": "Anmerkungsautor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"commentator": {
 			"title": "Kommentator",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"editora": {
 			"title": "Zweiteditor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"editorb": {
 			"title": "Dritteditor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"editorc": {
 			"title": "Vierteditor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"foreword": {
 			"title": "Vorwortautor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"holder": {
 			"title": "Patentinhaber",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"translator": {
 			"title": "Übersetzer",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			}
 		},
 	"superordinate": {
+		"$name": "veröffentlicht in",
 		"bookauthor": {
 			"title": "Autor",
-			"type": "name"
+			"type": "name",
+			"multi": true
 			},
 		"booksubtitle": {
 			"title": "Untertitel",
@@ -152,7 +163,7 @@ const conf = {
 			}
 		},
 	"periodical": {
-		"$name": "Reihe",
+		"$name": "Reihentitel",
 		"edition": {
 			"title": "Edition",
 			"type": "integer"
@@ -239,7 +250,8 @@ const conf = {
 			},
 		"url": {
 			"title": "URL",
-			"type": "uri"
+			"type": "uri",
+			"direct": true
 			},
 		"urldate": {
 			"title": "Abrufdatum",
@@ -308,10 +320,12 @@ const conf = {
 			},
 		"DOI": {
 			"title": "DOI",
-			"type": "text"
+			"type": "text",
+			"direct": true
 			}
 		},
 	"other": {
+		"$name": "Anderes",
 		"addendum": {
 			"title": "Anmerkung",
 			"type": "text"
@@ -340,7 +354,8 @@ const conf = {
 			},
 		"keywords": {
 			"title": "Schlagwörter",
-			"type": "text"
+			"type": "text",
+			"direct": true
 			},
 		"label": {
 			"title": "Kurzzitation",
@@ -369,5 +384,137 @@ const conf = {
 			"type": "longtext"
 			}
 		}
-	};
+	},
+	fields = {
+		    "article": {
+			"required": ["journaltitle", "title", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "annotator", "commentator", "doi", "editor", "editora", "editorb", "editorc", "eid", "eprint", "eprintclass", "eprinttype", "issn", "issue", "issuesubtitle", "issuetitle", "journalsubtitle", "language", "langid", "note", "number", "origlanguage", "pages", "pagination", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "version", "volume", "annotation", "keywords"]
+		},
+		"online": {
+			"required": ["date", "title", "url"],
+			"eitheror": ["editor", "author"],
+			"optional": ["abstract", "addendum", "pubstate", "subtitle", "language", "langid", "urldate", "titleaddon", "version", "note", "organization", "annotation", "keywords"]
+		},
+		"book": {
+			"required": ["title", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "chapter", "commentator", "doi", "edition", "editor", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "pagetotal", "bookpagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"mvbook": {
+			"required": ["title", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "commentator", "doi", "edition", "editor", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "note", "number", "origlanguage", "pagetotal", "bookpagination", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volumes", "annotation", "keywords"]
+		},
+		"inbook": {
+			"required": ["title", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "bookauthor", "booksubtitle", "booktitleaddon", "chapter", "commentator", "doi", "edition", "editor", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"bookinbook": {
+			"required": ["title", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "bookauthor", "booksubtitle", "booktitleaddon", "chapter", "commentator", "doi", "edition", "editor", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"suppbook": {
+			"required": ["title", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "bookauthor", "booksubtitle", "booktitleaddon", "chapter", "commentator", "doi", "edition", "editor", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"booklet": {
+			"required": ["title", "date"],
+			"eitheror": ["editor", "author"],
+			"optional": ["abstract", "titleaddon", "addendum", "pages", "pagination", "howpublished", "type", "pubstate", "chapter", "doi", "subtitle", "language", "langid", "location", "url", "urldate", "pagetotal", "bookpagination", "note", "eprint", "eprintclass", "eprinttype", "annotation", "keywords"]
+		},
+		"collection": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "chapter", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "pagetotal", "bookpagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"mvcollection": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "note", "number", "origlanguage", "pagetotal", "bookpagination", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volumes", "annotation", "keywords"]
+		},
+		"incollection": {
+			"required": ["title", "editor", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "booksubtitle", "booktitleaddon", "chapter", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"suppcollection": {
+			"required": ["title", "editor", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "booksubtitle", "booktitleaddon", "chapter", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"manual": {
+			"required": ["title", "date"],
+			"eitheror": ["editor", "author"],
+			"optional": ["abstract", "addendum", "chapter", "doi", "edition", "eprint", "eprintclass", "eprinttype", "isbn", "language", "langid", "location", "note", "number", "organization", "pages", "pagination", "pagetotal", "bookpagination", "publisher", "pubstate", "series", "subtitle", "titleaddon", "type", "url", "urldate", "version", "annotation", "keywords"]
+		},
+		"misc": {
+			"required": ["title", "date"],
+			"eitheror": ["editor", "author"],
+			"optional": ["abstract", "addendum", "howpublished", "type", "pubstate", "organization", "doi", "subtitle", "language", "langid", "location", "url", "urldate", "titleaddon", "version", "note", "eprint", "eprintclass", "eprinttype", "annotation", "keywords"]
+		},
+		"patent": {
+			"required": ["title", "number", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "holder", "location", "pubstate", "doi", "subtitle", "titleaddon", "type", "url", "urldate", "version", "note", "eprint", "eprintclass", "eprinttype", "annotation", "keywords"]
+		},
+		"periodical": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "volume", "pubstate", "number", "series", "issn", "issue", "issuesubtitle", "issuetitle", "doi", "subtitle", "editora", "editorb", "editorc", "url", "urldate", "language", "langid", "note", "eprint", "eprintclass", "eprinttype", "annotation", "keywords"]
+		},
+		"suppperiodical": {
+			"required": ["journaltitle", "title", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "annotator", "commentator", "doi", "editor", "editora", "editorb", "editorc", "eid", "eprint", "eprintclass", "eprinttype", "issn", "issue", "issuesubtitle", "issuetitle", "journalsubtitle", "language", "langid", "note", "number", "origlanguage", "pages", "pagination", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "version", "volume", "annotation", "keywords"]
+		},
+		"proceedings": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "chapter", "doi", "eprint", "eprintclass", "eprinttype", "eventdate", "eventtitle", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "organization", "pages", "pagination", "pagetotal", "bookpagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "url", "urldate", "venue", "volume", "volumes", "annotation", "keywords"]
+		},
+		"mvproceedings": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "doi", "eprint", "eprintclass", "eprinttype", "eventdate", "eventtitle", "isbn", "language", "langid", "location", "note", "number", "organization", "pagetotal", "bookpagination", "publisher", "pubstate", "series", "subtitle", "titleaddon", "url", "urldate", "venue", "volumes", "annotation", "keywords"]
+		},
+		"inproceedings": {
+			"required": ["title", "editor", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "booksubtitle", "booktitleaddon", "chapter", "doi", "eprint", "eprintclass", "eprinttype", "eventdate", "eventtitle", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "organization", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "url", "urldate", "venue", "volume", "volumes", "annotation", "keywords"]
+		},
+		"reference": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "chapter", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "pagetotal", "bookpagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"mvreference": {
+			"required": ["editor", "title", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "note", "number", "origlanguage", "pagetotal", "bookpagination", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volumes", "annotation", "keywords"]
+		},
+		"inreference": {
+			"required": ["title", "editor", "booktitle", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "afterword", "annotator", "booksubtitle", "booktitleaddon", "chapter", "commentator", "doi", "edition", "editora", "editorb", "editorc", "eprint", "eprintclass", "eprinttype", "foreword", "introduction", "isbn", "language", "langid", "location", "mainsubtitle", "maintitle", "maintitleaddon", "note", "number", "origlanguage", "pages", "pagination", "part", "publisher", "pubstate", "series", "subtitle", "titleaddon", "translator", "url", "urldate", "volume", "volumes", "annotation", "keywords"]
+		},
+		"report": {
+			"required": ["author", "title", "type", "institution", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "pages", "pagination", "pagetotal", "bookpagination", "pubstate", "number", "isrn", "chapter", "doi", "subtitle", "language", "langid", "location", "url", "urldate", "titleaddon", "version", "note", "eprint", "eprintclass", "eprinttype", "annotation", "keywords"]
+		},
+		"thesis": {
+			"required": ["author", "title", "type", "institution", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "pages", "pagination", "pagetotal", "bookpagination", "pubstate", "isbn", "chapter", "doi", "subtitle", "language", "langid", "location", "url", "urldate", "titleaddon", "note", "eprint", "eprintclass", "eprinttype", "annotation", "keywords"]
+		},
+		"unpublished": {
+			"required": ["title", "author", "date"],
+			"eitheror": [],
+			"optional": ["abstract", "addendum", "howpublished", "pubstate", "isbn", "date", "subtitle", "language", "langid", "location", "url", "urldate", "titleaddon", "note", "annotation", "keywords"]
+		}
+	}
 

@@ -60,9 +60,8 @@ margin-bottom: 25px;
 }
 
 .scrollable {
-	height: -webkit-fill-available;
-	height: -moz-available;
-	overflow-y: auto;
+    height: calc(100vh - 55px);
+    overflow-y: auto;
 }
 
 .scrollable.nospace {
@@ -93,7 +92,7 @@ margin-bottom: 25px;
 	cursor: pointer;
 }
 
-.input-group .form-control{
+.input-group .form-control, .input-group-btn{
 	flex-direction: row !important;
 }
 
@@ -101,4 +100,45 @@ margin-bottom: 25px;
 	margin-right: 15px;
     position: absolute;
     right: 0px;
+}
+
+div.form-control{
+	border: none;
+	margin-bottom: 1em;
+}
+
+
+.app-fab--absolute.app-fab--absolute.dropup .dropdown-menu{
+    right: 0px;
+    left: auto;
+}
+
+.dropdown-left.dropdown-menu{
+    right: 0px;
+    left: auto;
+}
+
+.app-fab--absolute.app-fab--absolute {
+	z-index: 20;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+[type=search]{
+	appearance: searchfield;
+	width: inherit;
+}
+
+[type=search]::placeholder{
+	font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+}
+
+@media(min-width: 1024px) {
+   .app-fab--absolute.app-fab--absolute {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
 }
