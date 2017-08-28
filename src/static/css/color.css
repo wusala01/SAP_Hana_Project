@@ -18,7 +18,7 @@
 
 .navbar-brand {
 	background-color: inherit;
-	background-image: url('/img/logo.svg');
+	background-image: url('/img/Logo-Scherenschnitt-incircle-texttopath-weiß.svg');
 	margin-left: 15px;
 }
 
@@ -52,10 +52,19 @@
 
 .form-control:focus {
 	border-color: var(--stress2);
-	box-shadow: inset 0 1px 1px rgba(255,153,17 ,.075), 0 0 8px rgba(255,221,34,.6)
+	-webkit-box-shadow: inset 0 1px 1px rgba(255,153,17 ,.075), 0 0 8px rgba(255,221,34,.6);
+	        box-shadow: inset 0 1px 1px rgba(255,153,17 ,.075), 0 0 8px rgba(255,221,34,.6)
 }
 
 ::-webkit-input-placeholder{
+	color: var(--gray75) !important;
+}
+
+:-ms-input-placeholder{
+	color: var(--gray75) !important;
+}
+
+::placeholder{
 	color: var(--gray75) !important;
 }
 

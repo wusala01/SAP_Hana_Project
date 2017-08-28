@@ -1,3 +1,7 @@
+body {
+	margin-bottom: 100px;
+}
+
 #headRow {
 	min-height: 60px;
 	display: block;
@@ -30,9 +34,48 @@
 	margin-top: 55px;
 }
 
-.flex {
-	display: flex;
-	flex-direction: row;
+.icon-first {
+	background-image: url('/img/icon-Literaturrecherche-magenta.png');
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.icon-second {
+	background-image: url('/img/icon-Literaturverwaltung-magenta.png');
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.icon-third {
+	background-image: url('/img/icon-Fehlersuche-magenta.png');
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.icon-fourth {
+	background-image: url('/img/icon-Ballons-magenta.png');
+	width: 50px;
+	height: 50px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .image {
@@ -69,7 +112,6 @@
 
 .row-spaced {
 	margin-top: 25px;
-	flex-grow: 1;
 }
 
 .card-heading {
