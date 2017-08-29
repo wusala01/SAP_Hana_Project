@@ -18,7 +18,8 @@ const groups = {
 		"title": {
 			"type": "text",
 			"title": "Titel",
-			"multi": true
+			"multi": true,
+			"direct": true
 			},
 		"subtitle": {
 			"title": "Untertitel",

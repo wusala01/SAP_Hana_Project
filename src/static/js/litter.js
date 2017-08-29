@@ -35,9 +35,10 @@ var app = angular.module('litter', [
 				if (!!conf.multi) {
 					var entry;
 					switch (type) {
-						case: "name": entry = {family: [{type: "text", text: ""}], given: [{type: "text", text: ""}];
+						case "name": 
+						entry = {family: [{type: "text", text: ""}], given: [{type: "text", text: ""}]};
 						break;
-						case: "text": 
+						case "text": 
 							if (!!conf.direct) entry = "";
 							else entry = {type: "text", text: ""};
 							break;				
@@ -70,9 +71,9 @@ var app = angular.module('litter', [
 			var type = conf.type;
 			var entry;
 			switch (type) {
-				case: "name": entry = {family: [{type: "text", text: ""}], given: [{type: "text", text: ""}];
+				case "name": entry = {family: [{type: "text", text: ""}], given: [{type: "text", text: ""}]};
 				break;
-				case: "text": 
+				case "text": 
 					if (!!conf.direct) entry = "";
 					else entry = {type: "text", text: ""};
 					break;				

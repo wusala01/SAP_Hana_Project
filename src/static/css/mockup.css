@@ -2,6 +2,10 @@ body {
 	margin-bottom: 100px;
 }
 
+#pageContainer {
+	margin-bottom: 100px;
+}
+
 #headRow {
 	min-height: 60px;
 	display: block;
@@ -84,19 +88,18 @@ body {
 	background-repeat: no-repeat;
 	margin: auto;
 	height: 300px;
-	/*! width: 500px; */
 }
 
 .image-heading {
 	background-image: url('/img/Logo-Scherenschnitt-schwarz-800.png');
-	width: 500px;
+	max-width: 500px;
 	height: 175px;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 30px;
+	margin-bottom: 15px;
 }
 
 #firstlvl {
@@ -112,13 +115,14 @@ body {
 
 .row-spaced {
 	margin-top: 25px;
+	min-height: 155px;
 }
 
 .card-heading {
 	font-weight: 500;
 	line-height: 1.1;
 	margin-top: 0;
-margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
 .login-btn .fa{
