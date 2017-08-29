@@ -1,9 +1,9 @@
 <% include ../partials/head %>
 	<div class="row"  data-ng-app="litter" data-ng-controller="litterCtrl" class="ng-scope">
 		<div class="col-md-3 col-xs-3">
-			<div class="list-group scrollable nospace">
+			<div class="list-group scrollable nospace" ng-init="search.$ = ''">
 				<input type="search" class="form-control" data-ng-model="search.$" placeholder="&#61442; search" />
-				<a data-ng-repeat="value in DB | toArray | filter:search" data-ng-if="!value.$value" data-ng-click="setCurrent(value.entry_key)" data-select="{{value.entry_key}}" draggable="true" data-ng-dragstart="dragListener(key, $event)" class="list-group-item {{isActive(value)}}">
+				<a data-ng-repeat="value in DB | toArray | filter:search" data-ng-click="setCurrent(value.entry_key)" data-select="{{value.entry_key}}" draggable="true" data-ng-dragstart="dragListener(value.entry_key, $event)" class="list-group-item {{isActive(value)}}">
 					<h4 class="list-group-item-heading">{{printAuthorTitle(value)}}</h4>
 					<p class="list-group-item-text">{{printCitation(value)}}</p>
 				</a>

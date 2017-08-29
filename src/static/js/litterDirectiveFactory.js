@@ -63,8 +63,8 @@
 			litterDirectives[makeDirectiveTitle(['ng', 'element', elementKey])] = ['$rootScope',
 				function($rootScope) {
 					var path;
-					if (_conf.multi) path = "value" + (_conf.type == "text" ? ".text" : "");
-					else path = "DB[current].fields." + elementKey;
+					if (_conf.multi) path = "value" + (_conf.type == "text" && !_conf.direct ? ".text" : "");
+					else path = "DB[current].fields." + elementKey + (_conf.type == "text" && !_conf.direct ? ".text" : "");
 					var result = {
 						restrict: "C"
 					};
@@ -97,7 +97,7 @@
 							result.template = "<span class=\"col col-sm-2 input-group-addon\">" + _conf.title +"</span><textarea data-ng-model=\"" + path + ".text\" class=\"form-control\" aria-describedby=\"doiAddon\" ></textarea>";
 						break;
 						default:
-							result.template = "<span class=\"col col-sm-2 input-group-addon\">" + _conf.title +"</span><input type=\"text\" data-ng-model=\"" + (_conf.direct ? path : path + ".text" )+ "\" class=\"form-control\" aria-describedby=\"doiAddon\" />";
+							result.template = "<span class=\"col col-sm-2 input-group-addon\">" + _conf.title +"</span><input type=\"text\" data-ng-model=\"" + path + "\" class=\"form-control\" aria-describedby=\"doiAddon\" />";
 					}
 					if (_conf.multi) result.template += " <div class=\"input-group-btn\"><button class=\"btn btn-default\" data-ng-click=\"addItem('" + elementKey + "')\" type=\"button\"><span class=\"fa fa-plus\"></span>&nbsp;</button><button class=\"btn btn-default\" data-ng-click=\"removeItem('" + elementKey + "', key)\" data-ng-if=\"DB[current].fields." + elementKey + ".length > 1\" type=\"button\"><span class=\"fa fa-minus\"></span>&nbsp;</button></div>";
 					return result;
